@@ -14,8 +14,8 @@ elif [ "$op" = "start" ]; then
         echo "error: please provide a postgres password"
         exit 1
     fi
-    # systemctl status docker || systemctl start docker 
-    if [ -z "$(systemctl status docker 2> /dev/null)" ]; then
+    # systemctl status docker || systemctl start docker
+    if [ "$(systemctl is-active docker)" = "unknown" ]; then
         echo "starting docker daemon..."
         systemctl start docker
     fi
@@ -25,7 +25,7 @@ elif [ "$op" = "start" ]; then
     else
         # docker inspect pgdata || docker volume create pgdata
         if [ -z "$(docker inspect --format '{{ .Mountpoint }}' pgdata 2> /dev/null)" ]; then
-            echo "creating local volumn..." 
+            echo "creating local volumn..."
             docker volume create pgdata
         fi
         # check if `jrvs-psql` container is created
@@ -38,10 +38,10 @@ elif [ "$op" = "start" ]; then
             -p 5432:5432 \
             postgres
         fi
-        docker container start jrvs-psql 
+        docker container start jrvs-psql
     fi
 else
-    echo "error: '${op}' is not a valid command"
+    echo "error: '${op}' is not a valid operation"
     exit 1
 fi
 
