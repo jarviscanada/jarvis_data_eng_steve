@@ -11,7 +11,7 @@ if [ "$op" = "stop" ]; then
     docker stop jrvs-psql
 elif [ "$op" = "start" ]; then
     if [ -z "$pwd" ]; then
-        echo "error: please provide a postgres password"
+        >&2 echo "error: please provide a postgres password"
         exit 1
     fi
     # systemctl status docker || systemctl start docker 
@@ -41,8 +41,8 @@ elif [ "$op" = "start" ]; then
         docker container start jrvs-psql 
     fi
 else
-    echo "error: '${op}' is not a valid command"
-    exit 1
+    >&2 echo "error: '${op}' is not a valid command"
+    exit 127
 fi
 
 exit 0
