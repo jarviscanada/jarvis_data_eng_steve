@@ -10,8 +10,7 @@ What does this project do? e.g. Cluster Monitor Agent is an internal tool that m
 2) Describe tables (no SQL code, just explain their usage)
 3) Describe scripts (no code, just explain their usage)
 
-![](../assets/arch.png)
-<img src="../assets/arch.png" alt="drawing" width="500"/>
+<img src="../assets/arch.png" alt="drawing" width="550"/>
 
 ## Usage
 1) how to init database and tables (e.g. ddl.sql)
