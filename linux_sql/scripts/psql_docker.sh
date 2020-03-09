@@ -30,15 +30,16 @@ elif [ "$op" = "start" ]; then
         fi
         # check if `jrvs-psql` container is created
         if [ $(docker ps -a -f name=jrvs-psql | wc -l) -ne 2 ]; then
-            echo "creating container..."
-            docker create \
+            echo "starting container..." 
+            docker run \
             --name jrvs-psql \
             -e POSTGRES_PASSWORD=$pwd \
             -v pgdata:/var/lib/postgresql/data \
             -p 5432:5432 \
-            postgres
+            -d postgres
+        else
+            docker container start jrvs-psql
         fi
-        docker container start jrvs-psql
     fi
 else
     >&2 echo "error: '${op}' is not a valid operation"
