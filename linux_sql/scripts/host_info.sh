@@ -1,6 +1,11 @@
 #! /bin/bash
 
-# assign CLI arguments to variables (e.g. `psql_host=$1`) 
+# assign CLI arguments to variables
+if [ "$#" -ne 5 ]; then
+    >&2 echo "error: illegal number of parameters, expect 5"
+    exit 1
+fi
+
 psql_host=$1
 psql_port=$2 
 db_name=$3
