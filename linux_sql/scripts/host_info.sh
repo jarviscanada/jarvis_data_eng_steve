@@ -23,7 +23,7 @@ l2_cache=$(echo "$lscpu_out" | grep "L2 cache:" | sed -r 's/L2 cache:\s{1,}//g')
 
 hostname=$(hostname -f)
 timestamp=$(date '+%Y/%m/%d %H:%M:%S')
-total_mem=$(free | awk 'NR == 2 {print $2}')
+total_mem=$(free -m | awk 'NR == 2 {print $2}')
 
 # construct the INSERT statement
 statement="INSERT INTO PUBLIC.host_info VALUES\
