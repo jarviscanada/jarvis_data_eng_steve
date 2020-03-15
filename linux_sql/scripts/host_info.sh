@@ -31,3 +31,5 @@ statement="INSERT INTO PUBLIC.host_info VALUES\
 
 # execute the INSERT statement through psql CLI tool
 psql -h $psql_host -p $psql_port -U $psql_user -w $db_name -c "$statement" 
+
+exit 0

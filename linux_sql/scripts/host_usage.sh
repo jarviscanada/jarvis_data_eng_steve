@@ -28,3 +28,5 @@ $memory_free, $cpu_idle, $cpu_kernel, $disk_io, $disk_available);"
 
 # execute the INSERT statement
 psql -h $psql_host -p $psql_port -U $psql_user -w $db_name -c "$statement" 
+
+exit 0
