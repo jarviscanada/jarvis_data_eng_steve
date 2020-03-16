@@ -25,7 +25,7 @@ This is an internal tool for Linux cluster administration (LCA) team that record
 The database `host_agent` consists of two tables: `host_info` and `host_usage`. `host_info` holds the hardware specifications data of each node, assuming the information is constant which will be only inserted once (see [Improvements](#improvements-todo)). `host_usage` stores the resource usage data collected in real-time.
 
 #### Schema of host_info 
-| Field            | Type      | Description/Example                       |
+| Field            | Type      | Description                               |
 |------------------|-----------|-------------------------------------------|
 | id               | SERIAL    | Auto-incremented primary key              |
 | hostname         | VARCHAR   | Must be unique, "Server-John-Doe"         |
@@ -37,7 +37,7 @@ The database `host_agent` consists of two tables: `host_info` and `host_usage`. 
 | timestamp        | TIMESTAMP | "2020/02/29 12:00:00"                     |
 
 #### Schema of host_usage
-| Field            | Type      | Description/Example                       |
+| Field            | Type      | Description                               |
 |------------------|-----------|-------------------------------------------|
 | timestamp        | TIMESTAMP | "2020/02/29 12:00:00"                     |
 | host_id          | SERIAL    | REFERENCES host_info(id)                  |
