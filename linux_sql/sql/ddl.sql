@@ -8,7 +8,7 @@
 --create `host_info` table if not exist
 CREATE TABLE PUBLIC.host_info 
 ( 
-    id                  SERIAL NOT NULL PRIMARY KEY,
+    id                  SERIAL PRIMARY KEY,
     hostname            VARCHAR NOT NULL UNIQUE,
     cpu_number          SMALLINT NOT NULL,
     cpu_architecture    VARCHAR NOT NULL,
