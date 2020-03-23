@@ -15,7 +15,7 @@ public interface JavaGrep {
   /**
    * Traverse a given directory and return all files
    * @param rootDir input directory
-   * @return files ubder the rootDir
+   * @return files under the rootDir
    */
   List<File> listFiles(String rootDir);
 
