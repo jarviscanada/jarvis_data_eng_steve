@@ -1,6 +1,7 @@
 package ca.jrvs.apps.practice;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -9,6 +10,25 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class LambdaStreamExcImp implements LambdaStreamExc {
+
+  public static void main(String[] args) {
+    LambdaStreamExc lse = new LambdaStreamExcImp();
+    Consumer<String> printer = lse.getLambdaPrinter("start> ", " <end");
+
+    String[] messages = {"lambda", "stream", "exercise"};
+    lse.printMessages(messages, printer);
+
+    int[] arr = {0, 1, 2, 3, 4};
+    lse.printOdd(lse.createIntStream(arr), printer);
+
+    List<List<Integer>> nestedInt = new LinkedList<>();
+    nestedInt.add(lse.toList(lse.createIntStream(11, 13)));
+    nestedInt.add(lse.toList(lse.createIntStream(14, 16)));
+    lse.printOdd(
+        lse.flatNestedInt(nestedInt.stream()).mapToInt(Integer::intValue)
+        , printer
+    );
+  }
 
   @Override
   public Stream<String> createStrStream(String... strings) {
