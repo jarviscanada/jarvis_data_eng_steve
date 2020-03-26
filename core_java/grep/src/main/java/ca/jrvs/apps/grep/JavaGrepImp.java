@@ -40,13 +40,9 @@ public class JavaGrepImp implements JavaGrep {
     if (args.length != 3) {
       throw new IllegalArgumentException("Usage: JavaGrep [regex] [rootPath] [outFilePath]");
     }
-
-    JavaGrepImp grep = new JavaGrepImp();
-    grep.setRegex(args[0]);
-    grep.setRootPath(args[1]);
-    grep.setOutFile(args[2]);
-
+    JavaGrepImp grep = new JavaGrepImp(args[0], args[1], args[2]);
     BasicConfigurator.configure(); // configure log4j
+
     try {
       grep.process();
     } catch (Exception e) {
