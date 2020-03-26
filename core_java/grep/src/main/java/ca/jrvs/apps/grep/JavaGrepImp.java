@@ -16,7 +16,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,8 +41,6 @@ public class JavaGrepImp implements JavaGrep {
       throw new IllegalArgumentException("Usage: JavaGrep [regex] [rootPath] [outFilePath]");
     }
     JavaGrepImp grep = new JavaGrepImp(args[0], args[1], args[2]);
-    BasicConfigurator.configure(); // configure log4j
-
     try {
       grep.process();
     } catch (Exception e) {
@@ -76,7 +73,7 @@ public class JavaGrepImp implements JavaGrep {
         }
       });
     } catch (IOException e) {
-      this.logger.error(e.getMessage(), e);
+      logger.error(e.getMessage(), e);
     }
     return ls;
   }
@@ -95,7 +92,7 @@ public class JavaGrepImp implements JavaGrep {
         line = reader.readLine();
       }
     } catch (IOException e) {
-      this.logger.error(e.getMessage(), e);
+      logger.error(e.getMessage(), e);
     }
     return lines;
   }

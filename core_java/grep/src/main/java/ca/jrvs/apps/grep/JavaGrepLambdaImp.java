@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +25,6 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
     grep.setRootPath(args[1]);
     grep.setOutFile(args[2]);
 
-    BasicConfigurator.configure(); // configure log4j
     try {
       grep.process();
     } catch (Exception e) {
@@ -45,7 +43,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
                     .filter(this::containsPattern)
             )
             .collect(Collectors.toList())
-    ); // looks cool but is it really better than super's ?
+    );
   }
 
   @Override
@@ -56,7 +54,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
           .filter(Files::isRegularFile)
           .forEach(f -> ls.add(f.toFile()));
     } catch (IOException e) {
-      this.logger.error(e.getMessage(), e);
+      logger.error(e.getMessage(), e);
     }
     return ls;
   }
@@ -66,7 +64,7 @@ public class JavaGrepLambdaImp extends JavaGrepImp {
     try (Stream<String> stream = Files.lines(inputFile.toPath())) {
       return stream.collect(Collectors.toList());
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage(), e);
     }
     return new LinkedList<>();
   }
