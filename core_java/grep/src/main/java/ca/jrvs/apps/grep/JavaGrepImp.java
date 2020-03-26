@@ -1,9 +1,11 @@
 package ca.jrvs.apps.grep;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +14,6 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.log4j.BasicConfigurator;
@@ -83,11 +84,17 @@ public class JavaGrepImp implements JavaGrep {
   @Override
   public List<String> readLines(File inputFile) {
     List<String> lines = new LinkedList<>();
-    try (Scanner scanner = new Scanner(inputFile)) {
-      while (scanner.hasNextLine()) {
-        lines.add(scanner.nextLine());
+    try (BufferedReader reader =
+        new BufferedReader(
+            new FileReader(inputFile)
+        )
+    ) {
+      String line = reader.readLine();
+      while (line != null) {
+        lines.add(line);
+        line = reader.readLine();
       }
-    } catch (FileNotFoundException e) {
+    } catch (IOException e) {
       this.logger.error(e.getMessage(), e);
     }
     return lines;
@@ -102,12 +109,14 @@ public class JavaGrepImp implements JavaGrep {
 
   @Override
   public void writeToFile(List<String> lines) throws IOException {
-    try (PrintWriter out = new PrintWriter(this.outFile)) {
+    try (BufferedWriter writer =
+        new BufferedWriter(
+            new FileWriter(this.outFile)
+        )
+    ) {
       for (String s : lines) {
-        out.println(s);
-      }
-      if (out.checkError()) {
-        throw new IOException("PrintWriter has encountered an error.");
+        writer.write(s);
+        writer.newLine();
       }
     }
   }
