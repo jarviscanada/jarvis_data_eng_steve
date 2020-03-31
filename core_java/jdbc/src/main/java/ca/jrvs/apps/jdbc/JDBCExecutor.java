@@ -17,8 +17,13 @@ public class JDBCExecutor {
     try {
       Connection connection = dcm.getConnection();
       CustomerDAO customerDAO = new CustomerDAO(connection);
-      Customer customer = customerDAO.findById(1000);
-      logger.info(customer.getFirstName() + " " + customer.getLastName());
+      Customer customer = customerDAO.findById(10000);
+      logger.info(customer.getFirstName() + " " + customer.getLastName() + " " +
+          customer.getEmail());
+      customer.setEmail("gwashington@wh.gov");
+      customer = customerDAO.update(customer);
+      logger.info(customer.getFirstName() + " " + customer.getLastName() + " " +
+          customer.getEmail());
     } catch (SQLException e) {
       logger.error(e.getMessage(), e);
     }
