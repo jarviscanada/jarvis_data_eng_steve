@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class CustomerDAO extends DataAccessObject<Customer> {
 
-  final Logger logger = LoggerFactory.getLogger(DataAccessObject.class);
+  final Logger logger = LoggerFactory.getLogger(CustomerDAO.class);
 
   private static final String INSERT = "INSERT INTO customer (first_name, last_name," +
       "email, phone, address, city, state, zipcode) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
