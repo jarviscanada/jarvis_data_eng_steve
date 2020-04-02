@@ -72,6 +72,12 @@ public class CustomerDAO extends DataAccessObject<Customer> {
   @Override
   public Customer update(Customer dto) {
     Customer customer;
+    try {
+      this.connection.setAutoCommit(false);
+    } catch (SQLException e) {
+      this.logger.error(e.getMessage(), e);
+      throw new RuntimeException(e);
+    }
     try (PreparedStatement statement = this.connection.prepareStatement(UPDATE)) {
       statement.setString(1, dto.getFirstName());
       statement.setString(2, dto.getLastName());
@@ -85,6 +91,12 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       statement.execute();
       customer = this.findById(dto.getId());
     } catch (SQLException e) {
+      try {
+        this.connection.rollback();
+      } catch (SQLException re) {
+        this.logger.error(e.getMessage(), re);
+        throw new RuntimeException(re);
+      }
       this.logger.error(e.getMessage(), e);
       throw new RuntimeException(e);
     }
