@@ -35,6 +35,16 @@ public class JDBCExecutor {
         logger.info("Page number: " + i);
         customerDAO.findAllPaged(10, i).forEach(x -> logger.info(x.toString()));
       }
+
+      logger.info("Update a record:");
+      Customer customer = customerDAO.findById(10000);
+      customer.setEmail("gwashington@wh.gov");
+      customer = customerDAO.update(customer);
+      logger.info(customer.getFirstName() + " "
+          + customer.getLastName() + " "
+          + customer.getEmail()
+      );
+
     } catch (SQLException e) {
       logger.error(e.getMessage(), e);
     }
