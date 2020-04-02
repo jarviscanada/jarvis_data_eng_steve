@@ -47,15 +47,7 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       statement.setLong(1, id);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        customer.setId(rs.getLong("customer_id"));
-        customer.setFirstName(rs.getString("first_name"));
-        customer.setLastName(rs.getString("last_name"));
-        customer.setEmail(rs.getString("email"));
-        customer.setPhone(rs.getString("phone"));
-        customer.setAddress(rs.getString("address"));
-        customer.setCity(rs.getString("city"));
-        customer.setState(rs.getString("state"));
-        customer.setZipCode(rs.getString("zipcode"));
+        customer = getCustomer(rs);
       }
     } catch (SQLException e) {
       this.logger.error(e.getMessage(), e);
@@ -79,14 +71,7 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       throw new RuntimeException(e);
     }
     try (PreparedStatement statement = this.connection.prepareStatement(UPDATE)) {
-      statement.setString(1, dto.getFirstName());
-      statement.setString(2, dto.getLastName());
-      statement.setString(3, dto.getEmail());
-      statement.setString(4, dto.getPhone());
-      statement.setString(5, dto.getAddress());
-      statement.setString(6, dto.getCity());
-      statement.setString(7, dto.getState());
-      statement.setString(8, dto.getZipCode());
+      setStatement(statement, dto);
       statement.setLong(9, dto.getId());
       statement.execute();
       customer = this.findById(dto.getId());
@@ -106,14 +91,7 @@ public class CustomerDAO extends DataAccessObject<Customer> {
   @Override
   public Customer create(Customer dto) {
     try (PreparedStatement statement = this.connection.prepareStatement(INSERT)) {
-      statement.setString(1, dto.getFirstName());
-      statement.setString(2, dto.getLastName());
-      statement.setString(3, dto.getEmail());
-      statement.setString(4, dto.getPhone());
-      statement.setString(5, dto.getAddress());
-      statement.setString(6, dto.getCity());
-      statement.setString(7, dto.getState());
-      statement.setString(8, dto.getZipCode());
+      setStatement(statement, dto);
       statement.execute();
       int id = this.getLastVal(CUSTOMER_SEQUENCE);
       return this.findById(id);
@@ -140,17 +118,7 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       statement.setInt(1, limit);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        Customer customer = new Customer();
-        customer.setId(rs.getLong("customer_id"));
-        customer.setFirstName(rs.getString("first_name"));
-        customer.setLastName(rs.getString("last_name"));
-        customer.setEmail(rs.getString("email"));
-        customer.setPhone(rs.getString("phone"));
-        customer.setAddress(rs.getString("address"));
-        customer.setCity(rs.getString("city"));
-        customer.setState(rs.getString("state"));
-        customer.setZipCode(rs.getString("zipcode"));
-        customers.add(customer);
+        customers.add(getCustomer(rs));
       }
     } catch (SQLException e) {
       this.logger.error(e.getMessage(), e);
@@ -171,22 +139,40 @@ public class CustomerDAO extends DataAccessObject<Customer> {
       statement.setInt(2, offset);
       ResultSet rs = statement.executeQuery();
       while (rs.next()) {
-        Customer customer = new Customer();
-        customer.setId(rs.getLong("customer_id"));
-        customer.setFirstName(rs.getString("first_name"));
-        customer.setLastName(rs.getString("last_name"));
-        customer.setEmail(rs.getString("email"));
-        customer.setPhone(rs.getString("phone"));
-        customer.setAddress(rs.getString("address"));
-        customer.setCity(rs.getString("city"));
-        customer.setState(rs.getString("state"));
-        customer.setZipCode(rs.getString("zipcode"));
-        customers.add(customer);
+        customers.add(getCustomer(rs));
       }
     } catch (SQLException e) {
       this.logger.error(e.getMessage(), e);
       throw new RuntimeException(e);
     }
     return customers;
+  }
+
+  private Customer getCustomer(ResultSet rs) throws SQLException {
+    Customer c = new Customer();
+    c.setId(rs.getLong("customer_id"));
+    c.setFirstName(rs.getString("first_name"));
+    c.setLastName(rs.getString("last_name"));
+    c.setEmail(rs.getString("email"));
+    c.setPhone(rs.getString("phone"));
+    c.setAddress(rs.getString("address"));
+    c.setCity(rs.getString("city"));
+    c.setState(rs.getString("state"));
+    c.setZipCode(rs.getString("zipcode"));
+    return c;
+  }
+
+  /**
+   * Set the PreparedStatement except ID field by a given DTO
+   */
+  private void setStatement(PreparedStatement st, Customer c) throws SQLException {
+    st.setString(1, c.getFirstName());
+    st.setString(2, c.getLastName());
+    st.setString(3, c.getEmail());
+    st.setString(4, c.getPhone());
+    st.setString(5, c.getAddress());
+    st.setString(6, c.getCity());
+    st.setString(7, c.getState());
+    st.setString(8, c.getZipCode());
   }
 }

@@ -41,27 +41,10 @@ public class OrderDAO extends DataAccessObject<Order> {
       boolean isFirstOrderLine = true;
       while (resultSet.next()) {
         if (isFirstOrderLine) {
-          order.setCustomerFirstName(resultSet.getString(1));
-          order.setCustomerLastName(resultSet.getString(2));
-          order.setCustomerEmail(resultSet.getString(3));
-          order.setId(resultSet.getLong(4));
-          order.setCreationDate(new Date(resultSet.getDate(5).getTime()));
-          order.setTotalDue(resultSet.getBigDecimal(6));
-          order.setStatus(resultSet.getString(7));
-          order.setSalespersonFirstName(resultSet.getString(8));
-          order.setSalespersonLastName(resultSet.getString(9));
-          order.setSalespersonEmail(resultSet.getString(10));
-
+          setOrder(order, resultSet);
           isFirstOrderLine = false;
         }
-        OrderLine orderLine = new OrderLine();
-        orderLine.setQuantity(resultSet.getInt(11));
-        orderLine.setProductCode(resultSet.getString(12));
-        orderLine.setProductName(resultSet.getString(13));
-        orderLine.setProductSize(resultSet.getInt(14));
-        orderLine.setProductVariety(resultSet.getString(15));
-        orderLine.setProductPrice(resultSet.getBigDecimal(16));
-        orderLines.add(orderLine);
+        orderLines.add(getOrderLine(resultSet));
       }
       order.setOrderLines(orderLines);
     } catch (SQLException e) {
@@ -105,31 +88,42 @@ public class OrderDAO extends DataAccessObject<Order> {
           orders.add(order);
           order.setId(localOrderId);
           orderId = localOrderId;
-          order.setCustomerFirstName(resultSet.getString(1));
-          order.setCustomerLastName(resultSet.getString(2));
-          order.setCustomerEmail(resultSet.getString(3));
-          order.setCreationDate(new Date(resultSet.getDate(5).getTime()));
-          order.setTotalDue(resultSet.getBigDecimal(6));
-          order.setStatus(resultSet.getString(7));
-          order.setSalespersonFirstName(resultSet.getString(8));
-          order.setSalespersonLastName(resultSet.getString(9));
-          order.setSalespersonEmail(resultSet.getString(10));
+          setOrder(order, resultSet);
           List<OrderLine> orderLines = new ArrayList<>();
           order.setOrderLines(orderLines);
         }
-        OrderLine orderLine = new OrderLine();
-        orderLine.setQuantity(resultSet.getInt(11));
-        orderLine.setProductCode(resultSet.getString(12));
-        orderLine.setProductName(resultSet.getString(13));
-        orderLine.setProductSize(resultSet.getInt(14));
-        orderLine.setProductVariety(resultSet.getString(15));
-        orderLine.setProductPrice(resultSet.getBigDecimal(16));
-        order.getOrderLines().add(orderLine);
+        if (order != null) {
+          order.getOrderLines().add(getOrderLine(resultSet));
+        }
       }
     } catch (SQLException e) {
-      e.printStackTrace();
+      logger.error(e.getMessage(), e);
       throw new RuntimeException(e);
     }
     return orders;
   }
+
+  private void setOrder(Order order, ResultSet rs) throws SQLException {
+    order.setCustomerFirstName(rs.getString(1));
+    order.setCustomerLastName(rs.getString(2));
+    order.setCustomerEmail(rs.getString(3));
+    order.setCreationDate(new Date(rs.getDate(5).getTime()));
+    order.setTotalDue(rs.getBigDecimal(6));
+    order.setStatus(rs.getString(7));
+    order.setSalespersonFirstName(rs.getString(8));
+    order.setSalespersonLastName(rs.getString(9));
+    order.setSalespersonEmail(rs.getString(10));
+  }
+
+  private OrderLine getOrderLine(ResultSet rs) throws SQLException {
+    OrderLine ol = new OrderLine();
+    ol.setQuantity(rs.getInt(11));
+    ol.setProductCode(rs.getString(12));
+    ol.setProductName(rs.getString(13));
+    ol.setProductSize(rs.getInt(14));
+    ol.setProductVariety(rs.getString(15));
+    ol.setProductPrice(rs.getBigDecimal(16));
+    return ol;
+  }
+
 }
