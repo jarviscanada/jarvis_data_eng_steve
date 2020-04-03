@@ -8,5 +8,12 @@ including the repository pattern, DAO, database transaction, etc.
 # ER Diagram
 <img src="../../assets/er.png" alt="drawing" width="600"/>
 
-# Design Patterns
-Discuss DAO and Repository design patterns (150-200 words)
+# Design Patterns (DAO vs. Repo)
+The repository pattern can be considered as a special case of DAO, while it focuses only on single 
+table access per class. A good example is [CustomerDAO](./src/main/java/ca/jrvs/apps/jdbc/CustomerDAO.java),
+we can see that it follows the repository pattern because it only accesses the customer data. And
+[OrderDAO](./src/main/java/ca/jrvs/apps/jdbc/OrderDAO.java) is another typical example of DAO (but NOT Repo.) 
+that interacts with multiple tables by using `JOIN` operation. 
+Both of repository and DAO patterns are useful depends on the use cases: when the data is highly normalized
+or atomic transaction is needed, the latter approach is obviously preferred because we can get the most from
+the relational database; while in cases when the horizontal scalability matters, repository pattern will fit better.
