@@ -9,8 +9,8 @@ including the repository pattern, DAO, database transaction, etc.
 
 ## Loading Data
 ### Running PostgreSQL
-Use [psql_docker.sh](../../../linux_sql/scripts/psql_docker.sh) to launch/stop a psql instance.
-Checkout the usage [here](../../../linux_sql/README.md).
+Use [psql_docker.sh](../../linux_sql/scripts/psql_docker.sh) to launch/stop a psql instance.
+Checkout the usage [here](../../linux_sql/README.md).
 
 ### Logging into Database
 `psql -h localhost -U postgres -d hplussport`
