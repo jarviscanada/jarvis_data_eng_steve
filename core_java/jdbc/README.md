@@ -5,7 +5,27 @@ By implementing this project, I got familiar with the basic usage of JDBC (Java 
 More importantly, I learnt several essential concepts for developing applications that interact with DBMS, 
 including the repository pattern, DAO, database transaction, etc.
 
-# ER Diagram
+# Database
+
+## Loading Data
+### Running PostgreSQL
+Use [psql_docker.sh](../../../linux_sql/scripts/psql_docker.sh) to launch/stop a psql instance.
+Checkout the usage [here](../../../linux_sql/README.md).
+
+### Logging into Database
+`psql -h localhost -U postgres -d hplussport`
+
+### Creating starter data
+```sh
+cd sql
+psql -h localhost -U postgres -f database.sql
+psql -h localhost -U postgres -d hplussport -f customer.sql
+psql -h localhost -U postgres -d hplussport -f product.sql
+psql -h localhost -U postgres -d hplussport -f salesperson.sql
+psql -h localhost -U postgres -d hplussport -f orders.sql
+```
+
+## ER Diagram
 <img src="../../assets/er.png" alt="drawing" width="600"/>
 
 # Design Patterns (DAO vs. Repo)
