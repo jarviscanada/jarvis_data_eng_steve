@@ -8,6 +8,7 @@ import org.junit.Test;
 
 public class TwitterHttpHelperTest {
 
+  private static final int HTTP_OK = 200;
   private TwitterHttpHelper helper;
 
   @Before
@@ -26,7 +27,7 @@ public class TwitterHttpHelperTest {
     HttpResponse response = helper.httpPost(new URI(
         "https://api.twitter.com/1.1/statuses/update.json?status=Message%20de%20HttpHelper"
     ));
-    Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+    Assert.assertEquals(HTTP_OK, response.getStatusLine().getStatusCode());
   }
 
   @Test
@@ -34,6 +35,6 @@ public class TwitterHttpHelperTest {
     HttpResponse response = this.helper.httpGet(new URI(
         "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=realDonaldTrump"
     ));
-    Assert.assertEquals(200, response.getStatusLine().getStatusCode());
+    Assert.assertEquals(HTTP_OK, response.getStatusLine().getStatusCode());
   }
 }
