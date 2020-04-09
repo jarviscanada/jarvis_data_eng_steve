@@ -10,7 +10,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-public class TwitterApiTest {
+public class TwitterApiExample {
 
   private static String CONSUMER_KEY = System.getenv("consumerKey");
   private static String CONSUMER_SECRET = System.getenv("consumerSecret");
