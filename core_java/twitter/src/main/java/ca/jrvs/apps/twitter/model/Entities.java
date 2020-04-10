@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @see <a href="https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/entities-object">
  * Entities Object</a>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Entities {
 
   /**
