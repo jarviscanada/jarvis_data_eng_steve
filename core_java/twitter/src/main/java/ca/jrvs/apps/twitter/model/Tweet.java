@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -8,13 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @see <a href="https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object">
  * Tweet Object</a>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Tweet {
 
   /**
    * UTC time when this Tweet was created.
    */
-  @JsonProperty("create_at")
-  private String createAt;
+  @JsonProperty("created_at")
+  private String createdAt;
 
   /**
    * The integer representation of the unique identifier for this Tweet.
@@ -75,7 +77,7 @@ public class Tweet {
   private boolean retweeted;
 
   public String getCreateAt() {
-    return createAt;
+    return createdAt;
   }
 
   public long getId() {
@@ -90,12 +92,20 @@ public class Tweet {
     return text;
   }
 
+  public void setText(String text) {
+    this.text = text;
+  }
+
   public Entities getEntities() {
     return entities;
   }
 
   public Coordinates getCoordinates() {
     return coordinates;
+  }
+
+  public void setCoordinates(Coordinates coordinates) {
+    this.coordinates = coordinates;
   }
 
   public int getRetweetCount() {
@@ -113,5 +123,4 @@ public class Tweet {
   public boolean isRetweeted() {
     return retweeted;
   }
-
 }
