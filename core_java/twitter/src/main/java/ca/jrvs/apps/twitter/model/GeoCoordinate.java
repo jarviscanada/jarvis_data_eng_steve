@@ -11,4 +11,8 @@ public interface GeoCoordinate {
    * Latitude specifies the north–south position of a point on the Earth's surface.
    */
   double getLatitude();
+
+  void setLongitude(double x);
+
+  void setLatitude(double x);
 }

@@ -13,12 +13,13 @@ public class Coordinates implements GeoCoordinate {
    */
   @JsonProperty("type")
   private final String type = "Point";
+
   /**
    * The longitude and latitude of the Tweet’s location, as a collection in the form {longitude,
    * latitude}.
    */
   @JsonProperty("coordinates")
-  private double[] coordinatesArray;
+  private double[] coordinatesArray = new double[2];
 
   public double[] getCoordinatesArray() {
     return coordinatesArray;
@@ -36,5 +37,15 @@ public class Coordinates implements GeoCoordinate {
   @Override
   public double getLatitude() {
     return coordinatesArray[LATITUDE_INDEX];
+  }
+
+  @Override
+  public void setLongitude(double x) {
+    coordinatesArray[LONGITUDE_INDEX] = x;
+  }
+
+  @Override
+  public void setLatitude(double x) {
+    coordinatesArray[LATITUDE_INDEX] = x;
   }
 }
