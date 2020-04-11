@@ -1,28 +1,53 @@
 package ca.jrvs.apps.twitter.dao.helper;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * AccessKey loads and stores all necessary information for authentication
+ */
 public class AccessKey {
 
+  @JsonProperty("consumer_key")
   private String consumerKey;
+  @JsonProperty("consumer_secret")
   private String consumerSecret;
+  @JsonProperty("access_token")
   private String accessToken;
+  @JsonProperty("token_secret")
   private String tokenSecret;
 
+  public AccessKey(String consumerKey, String consumerSecret,
+      String accessToken, String tokenSecret) {
+    this.consumerKey = consumerKey;
+    this.consumerSecret = consumerSecret;
+    this.accessToken = accessToken;
+    this.tokenSecret = tokenSecret;
+    validate();
+  }
+
+  /**
+   * Load secret information from environment variables
+   */
   public void loadFromEnv() {
     consumerKey = System.getenv("consumerKey");
-    if (consumerKey == null) {
-      throw new RuntimeException("Environment variable consumerKey not set");
-    }
     consumerSecret = System.getenv("consumerSecret");
-    if (consumerSecret == null) {
-      throw new RuntimeException("Environment variable consumerSecret not set");
-    }
     accessToken = System.getenv("accessToken");
-    if (accessToken == null) {
-      throw new RuntimeException("Environment variable accessToken not set");
-    }
     tokenSecret = System.getenv("tokenSecret");
+    validate();
+  }
+
+  private void validate() {
+    if (consumerKey == null) {
+      throw new RuntimeException("Empty consumerKey");
+    }
+    if (consumerSecret == null) {
+      throw new RuntimeException("Empty consumerSecret");
+    }
+    if (accessToken == null) {
+      throw new RuntimeException("Empty accessToken");
+    }
     if (tokenSecret == null) {
-      throw new RuntimeException("Environment variable tokenSecret not set");
+      throw new RuntimeException("Empty tokenSecret");
     }
   }
 

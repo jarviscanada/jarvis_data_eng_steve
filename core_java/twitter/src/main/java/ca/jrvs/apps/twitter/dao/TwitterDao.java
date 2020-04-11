@@ -15,6 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/**
+ * TwitterDao constructs Twitter REST API URIs and make HTTP calls using HttpHelper.
+ */
 public class TwitterDao implements CrdDao<Tweet, String> {
 
   /* URI constants */

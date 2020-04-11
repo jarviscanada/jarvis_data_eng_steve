@@ -34,6 +34,8 @@ public class TwitterHttpHelper implements HttpHelper {
 
   /**
    * Constructor setup dependencies using AccessKey
+   *
+   * @see AccessKey
    */
   public TwitterHttpHelper(AccessKey key) {
     this.consumer = new CommonsHttpOAuthConsumer(key.getConsumerKey(), key.getConsumerSecret());
