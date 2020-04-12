@@ -16,6 +16,9 @@ public class AccessKey {
   @JsonProperty("token_secret")
   private String tokenSecret;
 
+  public AccessKey() {
+  }
+
   public AccessKey(String consumerKey, String consumerSecret,
       String accessToken, String tokenSecret) {
     this.consumerKey = consumerKey;
