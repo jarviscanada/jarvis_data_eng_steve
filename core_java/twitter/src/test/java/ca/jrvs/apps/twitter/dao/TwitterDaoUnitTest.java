@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
@@ -79,7 +80,11 @@ public class TwitterDaoUnitTest {
     // test happy path
     when(mockHelper.httpPost(isNotNull())).thenReturn(null);
 
-    Tweet tweet = spyDao.create(TweetUtil.buildTweet(text, lon, lat));
+    Tweet input = TweetUtil.buildTweet(text, lon, lat);
+    Tweet tweet = spyDao.create(input);
+
+    verify(spyDao).create(input);
+    verify(spyDao).parseResponseBody(null);
     assertNotNull(tweet);
     assertNotNull(tweet.getText());
   }
@@ -87,8 +92,10 @@ public class TwitterDaoUnitTest {
   @Test
   public void findById() {
     when(mockHelper.httpGet(isNotNull())).thenReturn(null);
-
     Tweet tweet = spyDao.findById(FAKE_ID);
+
+    verify(spyDao).findById(FAKE_ID);
+    verify(spyDao).parseResponseBody(null);
     assertNotNull(tweet);
     assertNotNull(tweet.getText());
   }
@@ -96,8 +103,10 @@ public class TwitterDaoUnitTest {
   @Test
   public void deleteById() {
     when(mockHelper.httpPost(isNotNull())).thenReturn(null);
-
     Tweet tweet = spyDao.deleteById(FAKE_ID);
+
+    verify(spyDao).deleteById(FAKE_ID);
+    verify(spyDao).parseResponseBody(null);
     assertNotNull(tweet);
     assertNotNull(tweet.getText());
   }
