@@ -24,7 +24,15 @@ public class Hashtag {
     return indices;
   }
 
+  public void setIndices(int[] indices) {
+    this.indices = indices;
+  }
+
   public String getText() {
     return text;
+  }
+
+  public void setText(String text) {
+    this.text = text;
   }
 }

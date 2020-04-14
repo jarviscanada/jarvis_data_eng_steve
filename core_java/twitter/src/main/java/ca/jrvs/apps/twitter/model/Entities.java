@@ -33,7 +33,15 @@ public class Entities {
     return hashtags;
   }
 
+  public void setHashtags(Hashtag[] hashtags) {
+    this.hashtags = hashtags;
+  }
+
   public UserMention[] getMentions() {
     return mentions;
+  }
+
+  public void setMentions(UserMention[] mentions) {
+    this.mentions = mentions;
   }
 }
