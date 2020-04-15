@@ -7,12 +7,25 @@ import java.util.regex.Pattern;
 
 public class TweetUtil {
 
-  private static final int TWEET_LEN_MAX = 140;
-  private static final int TWEET_LEN_MIN = 1;
-  private static final double LONGITUDE_MAX = 180d;
-  private static final double LONGITUDE_MIN = -180d;
-  private static final double LATITUDE_MAX = 90d;
-  private static final double LATITUDE_MIN = -90d;
+  public static final int TWEET_LEN_MAX = 140;
+  public static final int TWEET_LEN_MIN = 1;
+  public static final double LONGITUDE_MAX = 180d;
+  public static final double LONGITUDE_MIN = -180d;
+  public static final double LATITUDE_MAX = 90d;
+  public static final double LATITUDE_MIN = -90d;
+
+  private static final String[] ALL_FIELDS = {
+      "created_at",
+      "id",
+      "id_str",
+      "text",
+      "coordinates",
+      "entities",
+      "retweet_count",
+      "favorite_count",
+      "favorited",
+      "retweeted"
+  };
 
   private static final Pattern ID_PATTERN = Pattern.compile("^[0-9]+$");
 
@@ -107,5 +120,9 @@ public class TweetUtil {
       default:
         throw new IllegalArgumentException("No such a field: " + fieldName);
     }
+  }
+
+  public static String[] getAllFields() {
+    return ALL_FIELDS.clone();
   }
 }
