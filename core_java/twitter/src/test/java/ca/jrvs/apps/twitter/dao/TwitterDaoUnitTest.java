@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.dao;
 
+import static ca.jrvs.apps.twitter.example.JsonParserExample.TWEET_JSON_STR;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,26 +26,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 public class TwitterDaoUnitTest {
 
   private static final String FAKE_ID = "0123456789";
-  private static final String TWEET_JSON_STR = "{\n"
-      + "   \"created_at\":\"Mon Feb 18 21:24:39 +0000 2019\",\n"
-      + "   \"id\":1097607853932564480,\n"
-      + "   \"id_str\":\"1097607853932564480\",\n"
-      + "   \"text\":\"test with loc223\",\n"
-      + "   \"entities\":{\n"
-      + "       \"hashtags\":[],"
-      + "       \"user_mentions\":[]"
-      + "   },\n"
-      + "   \"coordinates\":null,\n"
-      + "   \"retweet_count\":0,\n"
-      + "   \"favorite_count\":0,\n"
-      + "   \"favorited\":false,\n"
-      + "   \"retweeted\":false\n"
-      + "}";
 
-  /**
-   * tweet to mock parseResponseBody
-   */
-  private Tweet expectedTweet;
   @Mock
   private HttpHelper mockHelper;
   @InjectMocks
@@ -53,7 +35,8 @@ public class TwitterDaoUnitTest {
 
   @Before
   public void setUp() throws IOException {
-    expectedTweet = JsonParser.toObjectFromJson(TWEET_JSON_STR, Tweet.class);
+    // tweet to mock parseResponseBody
+    Tweet expectedTweet = JsonParser.toObjectFromJson(TWEET_JSON_STR, Tweet.class);
     // make a spyDao which can fake parseResponseBody return value
     spyDao = Mockito.spy(dao);
     doReturn(expectedTweet).when(spyDao).parseResponseBody(any());
@@ -73,8 +56,7 @@ public class TwitterDaoUnitTest {
     try {
       dao.create(TweetUtil.buildTweet(text, lon, lat));
       fail();
-    } catch (RuntimeException e) {
-      // fine
+    } catch (RuntimeException ignored) {
     }
 
     // test happy path

@@ -9,7 +9,7 @@ public class JsonParserExample extends JsonParser {
   /**
    * JSON string is provided(you can copy and paste)
    */
-  public static final String COMPANY_STR = "{\n"
+  public static final String COMPANY_JSON_STR = "{\n"
       + "   \"symbol\":\"AAPL\",\n"
       + "   \"companyName\":\"Apple Inc.\",\n"
       + "   \"exchange\":\"Nasdaq Global Select\",\n"
@@ -57,9 +57,24 @@ public class JsonParserExample extends JsonParser {
       + "   ]\n"
       + "}";
 
+  public static final String TWEET_JSON_STR = "{\n"
+      + "   \"created_at\":\"Mon Feb 18 21:24:39 +0000 2019\",\n"
+      + "   \"id\":1097607853932564480,\n"
+      + "   \"id_str\":\"1097607853932564480\",\n"
+      + "   \"text\":\"test with loc223\",\n"
+      + "   \"entities\":{\n"
+      + "       \"hashtags\":[],"
+      + "       \"user_mentions\":[]"
+      + "   },\n"
+      + "   \"coordinates\":null,\n"
+      + "   \"retweet_count\":0,\n"
+      + "   \"favorite_count\":0,\n"
+      + "   \"favorited\":false,\n"
+      + "   \"retweeted\":false\n"
+      + "}";
+
   public static void main(String[] args) throws IOException {
-    Company company = toObjectFromJson(COMPANY_STR, Company.class);
+    Company company = toObjectFromJson(COMPANY_JSON_STR, Company.class);
     System.out.println(toJson(company, true, false));
   }
-
 }
