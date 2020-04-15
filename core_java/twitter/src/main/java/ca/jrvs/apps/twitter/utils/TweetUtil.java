@@ -31,14 +31,14 @@ public class TweetUtil {
 
   public static void validateId(String id) {
     if (!ID_PATTERN.matcher(id).matches()) {
-      throw new RuntimeException("Invalid id: " + id);
+      throw new IllegalArgumentException("Invalid id: " + id);
     }
   }
 
   public static void validateTweet(Tweet tweet) {
     String text = tweet.getText();
     if (text == null) {
-      throw new RuntimeException("Missing status field");
+      throw new IllegalArgumentException("Missing status field");
     }
     validateStatus(text);
 
