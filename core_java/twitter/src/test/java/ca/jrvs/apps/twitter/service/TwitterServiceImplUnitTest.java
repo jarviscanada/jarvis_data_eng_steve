@@ -29,7 +29,7 @@ public class TwitterServiceImplUnitTest {
 
   private static final String TEXT = "Test message from the North Pole.";
   private static final String FAKE_ID = "0123456789";
-  private static final double LONGITUDE_MIN = -180;
+  private static final double LONGITUDE_MIN = -180d;
   private static final double LATITUDE_MAX = 90d;
   private static final int TWEET_LEN_MAX = 140;
 
@@ -51,7 +51,7 @@ public class TwitterServiceImplUnitTest {
 
   @Test
   public void postTweet() {
-    when(dao.create(any())).thenReturn(expectedTweet);
+    when(dao.create(any(Tweet.class))).thenReturn(expectedTweet);
     Tweet tweet = service.postTweet(TweetUtil.buildTweet(TEXT, LONGITUDE_MIN, LATITUDE_MAX));
     assertEquals(expectedTweet, tweet);
 
