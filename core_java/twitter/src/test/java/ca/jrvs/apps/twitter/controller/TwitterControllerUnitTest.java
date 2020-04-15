@@ -1,5 +1,13 @@
 package ca.jrvs.apps.twitter.controller;
 
+import static ca.jrvs.apps.twitter.TestUtil.CAUGHT;
+import static ca.jrvs.apps.twitter.TestUtil.FAKE_ID;
+import static ca.jrvs.apps.twitter.TestUtil.LATITUDE;
+import static ca.jrvs.apps.twitter.TestUtil.LONGITUDE;
+import static ca.jrvs.apps.twitter.TestUtil.TEXT;
+import static ca.jrvs.apps.twitter.controller.TwitterController.CMD_DEL;
+import static ca.jrvs.apps.twitter.controller.TwitterController.CMD_POST;
+import static ca.jrvs.apps.twitter.controller.TwitterController.CMD_SHOW;
 import static ca.jrvs.apps.twitter.controller.TwitterController.COORD_SEP;
 import static ca.jrvs.apps.twitter.example.JsonParserExample.TWEET_JSON_STR;
 import static org.junit.Assert.assertEquals;
@@ -27,15 +35,9 @@ import org.slf4j.LoggerFactory;
 @RunWith(MockitoJUnitRunner.class)
 public class TwitterControllerUnitTest {
 
-  private static final String CMD_POST = "post";
-  private static final String CMD_SHOW = "show";
-  private static final String CMD_DEL = "delete";
-  private static final String TEXT = "Test message from the North Pole.";
-  private static final String FAKE_ID = "0123456789";
   private static final String FIELDS = "id,text,retweet_count";
-  private static final double LONGITUDE = 135d;
-  private static final double LATITUDE = 90d;
   private final Logger logger = LoggerFactory.getLogger(TwitterControllerUnitTest.class);
+
   @Mock
   Service service;
   @InjectMocks
@@ -58,14 +60,14 @@ public class TwitterControllerUnitTest {
       controller.postTweet(new String[]{CMD_POST, TEXT, LATITUDE + COORD_SEP});
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
 
     try {
       controller.postTweet(new String[]{CMD_POST, TEXT});
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
   }
 
@@ -82,7 +84,7 @@ public class TwitterControllerUnitTest {
       controller.showTweet(new String[]{CMD_SHOW, FAKE_ID, FIELDS, TEXT});
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
   }
 
@@ -97,7 +99,7 @@ public class TwitterControllerUnitTest {
       controller.deleteTweet(new String[]{CMD_DEL});
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
   }
 }

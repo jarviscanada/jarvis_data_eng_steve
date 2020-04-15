@@ -1,8 +1,12 @@
 package ca.jrvs.apps.twitter.dao;
 
+import static ca.jrvs.apps.twitter.TestUtil.HASHTAG;
+import static ca.jrvs.apps.twitter.TestUtil.LATITUDE;
+import static ca.jrvs.apps.twitter.TestUtil.LONGITUDE;
+import static ca.jrvs.apps.twitter.TestUtil.MENTION;
+import static ca.jrvs.apps.twitter.TestUtil.TEXT;
+import static ca.jrvs.apps.twitter.TestUtil.checkTweet;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.twitter.dao.helper.AccessKey;
@@ -17,12 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TwitterDaoIntTest {
-
-  private static final String HASHTAG = "#test";
-  private static final String MENTION = "@someone";
-  private static final String TEXT = " Test message from the North Pole.";
-  private static final double LONGITUDE = 135d;
-  private static final double LATITUDE = 90d;
 
   private final Logger logger = LoggerFactory.getLogger(TwitterDaoIntTest.class);
   private TwitterDao dao;
@@ -67,12 +65,4 @@ public class TwitterDaoIntTest {
     }
   }
 
-  private void checkTweet(Tweet tweet) {
-    assertNotNull(tweet.getText());
-    assertNotNull(tweet.getCoordinates());
-    assertEquals(2, tweet.getCoordinates().getCoordinatesArray().length);
-    assertEquals(LONGITUDE, tweet.getCoordinates().getLongitude(), 0.1);
-    assertEquals(LATITUDE, tweet.getCoordinates().getLatitude(), 0.1);
-    assertTrue(HASHTAG.contains(tweet.getEntities().getHashtags()[0].getText()));
-  }
 }

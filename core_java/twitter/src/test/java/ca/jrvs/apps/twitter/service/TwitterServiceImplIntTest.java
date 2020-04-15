@@ -1,11 +1,16 @@
 package ca.jrvs.apps.twitter.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static ca.jrvs.apps.twitter.TestUtil.HASHTAG;
+import static ca.jrvs.apps.twitter.TestUtil.LATITUDE;
+import static ca.jrvs.apps.twitter.TestUtil.LONGITUDE;
+import static ca.jrvs.apps.twitter.TestUtil.MENTION;
+import static ca.jrvs.apps.twitter.TestUtil.TEXT;
+import static ca.jrvs.apps.twitter.TestUtil.checkTweet;
+import static ca.jrvs.apps.twitter.TestUtil.getFieldsWithNullAndMistyped;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import ca.jrvs.apps.twitter.TestUtil;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
 import ca.jrvs.apps.twitter.dao.helper.AccessKey;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
@@ -21,12 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TwitterServiceImplIntTest {
-
-  private static final String HASHTAG = "#test";
-  private static final String MENTION = "@someone";
-  private static final String TEXT = " Test message from the North Pole.";
-  private static final double LONGITUDE = 135d;
-  private static final double LATITUDE = 90d;
 
   private final Logger logger = LoggerFactory.getLogger(TwitterServiceImplIntTest.class);
   private TwitterServiceImpl service;
@@ -49,15 +48,10 @@ public class TwitterServiceImplIntTest {
         .map(str -> TweetUtil.buildTweet(str, LONGITUDE, LATITUDE))
         .map(service::postTweet)
         .collect(Collectors.toList());
-    postedTweets.forEach(this::checkTweet);
+    postedTweets.forEach(TestUtil::checkTweet);
 
     logger.info("Testing find...");
-    // fields we want to show
-    String[] fields = TwitterServiceImpl.getAllFields();
-    // someone miss-typed "created_at"
-    fields[0] = "create_at";
-    // someone doesn't like "id"
-    fields[1] = null;
+    String[] fields = getFieldsWithNullAndMistyped();
 
     List<Tweet> lastTweets = postedTweets.stream()
         .map(Tweet::getIdString)
@@ -74,7 +68,7 @@ public class TwitterServiceImplIntTest {
         .map(Tweet::getIdString)
         .toArray(String[]::new);
     List<Tweet> removedTweets = service.deleteTweets(ids);
-    removedTweets.forEach(this::checkTweet);
+    removedTweets.forEach(TestUtil::checkTweet);
 
     // Do they still exist?
     for (String id : ids) {
@@ -88,12 +82,4 @@ public class TwitterServiceImplIntTest {
     }
   }
 
-  private void checkTweet(Tweet tweet) {
-    assertNotNull(tweet.getText());
-    assertNotNull(tweet.getCoordinates());
-    assertEquals(2, tweet.getCoordinates().getCoordinatesArray().length);
-    assertEquals(LONGITUDE, tweet.getCoordinates().getLongitude(), 0.1);
-    assertEquals(LATITUDE, tweet.getCoordinates().getLatitude(), 0.1);
-    assertTrue(HASHTAG.contains(tweet.getEntities().getHashtags()[0].getText()));
-  }
 }

@@ -1,5 +1,6 @@
 package ca.jrvs.apps.twitter.dao;
 
+import static ca.jrvs.apps.twitter.TestUtil.FAKE_ID;
 import static ca.jrvs.apps.twitter.example.JsonParserExample.TWEET_JSON_STR;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -24,8 +25,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TwitterDaoUnitTest {
-
-  private static final String FAKE_ID = "0123456789";
 
   @Mock
   private HttpHelper mockHelper;
