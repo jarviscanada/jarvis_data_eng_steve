@@ -19,10 +19,9 @@ public interface Service {
   /**
    * Search a tweet by ID
    *
-   * @param id tweet id
-   * @param fields set fields not in the list to null
+   * @param id     tweet id
+   * @param fields set fields not in the list to null; do nothing if null
    * @return Tweet object which is returned by the Twitter API
-   *
    * @throws IllegalArgumentException if id or fields param is invalid
    */
   Tweet showTweet(String id, String[] fields);
