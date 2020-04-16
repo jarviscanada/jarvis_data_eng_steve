@@ -14,6 +14,12 @@ public class TweetUtil {
   public static final double LATITUDE_MAX = 90d;
   public static final double LATITUDE_MIN = -90d;
 
+  public static final String COORD_SEP = ":";
+  public static final String FIELD_SEP = ",";
+  public static final String CMD_POST = "post";
+  public static final String CMD_SHOW = "show";
+  public static final String CMD_DEL = "delete";
+
   private static final String[] ALL_FIELDS = {
       "created_at",
       "id",
@@ -120,6 +126,14 @@ public class TweetUtil {
       default:
         throw new IllegalArgumentException("No such a field: " + fieldName);
     }
+  }
+
+  public static String fieldsToString(String[] fields) {
+    StringBuilder builder = new StringBuilder();
+    for (String f : fields) {
+      builder.append(f).append(FIELD_SEP);
+    }
+    return builder.toString();
   }
 
   public static String[] getAllFields() {
