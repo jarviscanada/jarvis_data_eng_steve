@@ -1,6 +1,13 @@
 package ca.jrvs.apps.twitter.service;
 
+import static ca.jrvs.apps.twitter.TestUtil.CAUGHT;
+import static ca.jrvs.apps.twitter.TestUtil.FAKE_ID;
+import static ca.jrvs.apps.twitter.TestUtil.TEXT;
+import static ca.jrvs.apps.twitter.TestUtil.getFieldsWithNullAndMistyped;
 import static ca.jrvs.apps.twitter.example.JsonParserExample.TWEET_JSON_STR;
+import static ca.jrvs.apps.twitter.utils.TweetUtil.LATITUDE_MAX;
+import static ca.jrvs.apps.twitter.utils.TweetUtil.LONGITUDE_MIN;
+import static ca.jrvs.apps.twitter.utils.TweetUtil.TWEET_LEN_MAX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,20 +32,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TwitterServiceImplUnitTest {
+public class TwitterServiceUnitTest {
 
-  private static final String TEXT = "Test message from the North Pole.";
-  private static final String FAKE_ID = "0123456789";
-  private static final double LONGITUDE_MIN = -180;
-  private static final double LATITUDE_MAX = 90d;
-  private static final int TWEET_LEN_MAX = 140;
+  private final Logger logger = LoggerFactory.getLogger(TwitterServiceUnitTest.class);
+  private Tweet expectedTweet;
 
-  private final Logger logger = LoggerFactory.getLogger(TwitterServiceImplUnitTest.class);
   @Mock
   TwitterDao dao;
   @InjectMocks
-  TwitterServiceImpl service;
-  private Tweet expectedTweet;
+  TwitterService service;
 
   private static String makeString(int n, char fill) {
     return CharBuffer.allocate(n).toString().replace('\0', fill);
@@ -51,7 +53,7 @@ public class TwitterServiceImplUnitTest {
 
   @Test
   public void postTweet() {
-    when(dao.create(any())).thenReturn(expectedTweet);
+    when(dao.create(any(Tweet.class))).thenReturn(expectedTweet);
     Tweet tweet = service.postTweet(TweetUtil.buildTweet(TEXT, LONGITUDE_MIN, LATITUDE_MAX));
     assertEquals(expectedTweet, tweet);
 
@@ -59,21 +61,21 @@ public class TwitterServiceImplUnitTest {
       service.postTweet(TweetUtil.buildTweet(TEXT, LONGITUDE_MIN, LATITUDE_MAX + 1));
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
 
     try {
       service.postTweet(TweetUtil.buildTweet(TEXT, LONGITUDE_MIN - 1, LATITUDE_MAX));
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
 
     try {
       service.postTweet(TweetUtil.buildTweet("", LONGITUDE_MIN, LATITUDE_MAX));
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
 
     try {
@@ -81,18 +83,15 @@ public class TwitterServiceImplUnitTest {
           makeString(TWEET_LEN_MAX + 1, '.'), LONGITUDE_MIN, LATITUDE_MAX));
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
   }
 
   @Test
   public void showTweet() {
     when(dao.findById(anyString())).thenReturn(expectedTweet);
-    String[] fields = TwitterServiceImpl.getAllFields();
-    // someone miss-typed "created_at"
-    fields[0] = "create_at";
-    // someone doesn't like "id"
-    fields[1] = null;
+
+    String[] fields = getFieldsWithNullAndMistyped();
     Tweet tweet = service.showTweet(FAKE_ID, fields);
     TweetUtil.clearField(expectedTweet, "created_at");
     TweetUtil.clearField(expectedTweet, "id");
@@ -102,7 +101,7 @@ public class TwitterServiceImplUnitTest {
       service.showTweet(makeString(5, '.'), fields);
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
   }
 
@@ -120,7 +119,7 @@ public class TwitterServiceImplUnitTest {
       service.deleteTweets(ids);
       fail();
     } catch (IllegalArgumentException e) {
-      logger.info("Exception Caught: " + e.getMessage());
+      logger.info(CAUGHT + e.getMessage());
     }
   }
 }
