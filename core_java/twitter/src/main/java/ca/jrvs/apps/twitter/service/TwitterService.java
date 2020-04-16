@@ -10,12 +10,12 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TwitterServiceImpl implements Service {
+public class TwitterService implements Service {
 
   private final CrdDao<Tweet, String> dao;
-  private final Logger logger = LoggerFactory.getLogger(TwitterServiceImpl.class);
+  private final Logger logger = LoggerFactory.getLogger(TwitterService.class);
 
-  public TwitterServiceImpl(CrdDao<Tweet, String> dao) {
+  public TwitterService(CrdDao<Tweet, String> dao) {
     this.dao = dao;
   }
 

@@ -21,7 +21,7 @@ import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.service.Service;
-import ca.jrvs.apps.twitter.service.TwitterServiceImpl;
+import ca.jrvs.apps.twitter.service.TwitterService;
 import ca.jrvs.apps.twitter.utils.TweetUtil;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,7 @@ public class TwitterControllerIntTest {
     logger.info(key.toString());
     HttpHelper helper = new TwitterHttpHelper(key);
     TwitterDao dao = new TwitterDao(helper);
-    Service service = new TwitterServiceImpl(dao);
+    Service service = new TwitterService(dao);
     this.controller = new TwitterController(service);
   }
 

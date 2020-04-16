@@ -25,10 +25,10 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TwitterServiceImplIntTest {
+public class TwitterServiceIntTest {
 
-  private final Logger logger = LoggerFactory.getLogger(TwitterServiceImplIntTest.class);
-  private TwitterServiceImpl service;
+  private final Logger logger = LoggerFactory.getLogger(TwitterServiceIntTest.class);
+  private TwitterService service;
 
   @Before
   public void setUp() {
@@ -37,7 +37,7 @@ public class TwitterServiceImplIntTest {
     logger.info(key.toString());
     HttpHelper helper = new TwitterHttpHelper(key);
     TwitterDao dao = new TwitterDao(helper);
-    this.service = new TwitterServiceImpl(dao);
+    this.service = new TwitterService(dao);
   }
 
   @Test

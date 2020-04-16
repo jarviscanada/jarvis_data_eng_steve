@@ -12,7 +12,7 @@ import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.service.Service;
-import ca.jrvs.apps.twitter.service.TwitterServiceImpl;
+import ca.jrvs.apps.twitter.service.TwitterService;
 import ca.jrvs.apps.twitter.utils.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -34,7 +34,7 @@ public class TwitterCLIApp {
         System.getenv("TokenSecret")
     );
     CrdDao<Tweet, String> dao = new TwitterDao(helper);
-    Service service = new TwitterServiceImpl(dao);
+    Service service = new TwitterService(dao);
     Controller controller = new TwitterController(service);
     TwitterCLIApp app = new TwitterCLIApp(controller);
 

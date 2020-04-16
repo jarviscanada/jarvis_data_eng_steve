@@ -32,15 +32,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @RunWith(MockitoJUnitRunner.class)
-public class TwitterServiceImplUnitTest {
+public class TwitterServiceUnitTest {
 
-  private final Logger logger = LoggerFactory.getLogger(TwitterServiceImplUnitTest.class);
+  private final Logger logger = LoggerFactory.getLogger(TwitterServiceUnitTest.class);
   private Tweet expectedTweet;
 
   @Mock
   TwitterDao dao;
   @InjectMocks
-  TwitterServiceImpl service;
+  TwitterService service;
 
   private static String makeString(int n, char fill) {
     return CharBuffer.allocate(n).toString().replace('\0', fill);
