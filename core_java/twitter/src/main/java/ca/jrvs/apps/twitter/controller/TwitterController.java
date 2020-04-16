@@ -8,7 +8,9 @@ import ca.jrvs.apps.twitter.service.Service;
 import ca.jrvs.apps.twitter.utils.TweetUtil;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
+@org.springframework.stereotype.Controller
 public class TwitterController implements Controller {
 
   private static final String POST_USAGE =
@@ -18,6 +20,7 @@ public class TwitterController implements Controller {
 
   private final Service service;
 
+  @Autowired
   public TwitterController(Service service) {
     this.service = service;
   }

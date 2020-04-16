@@ -13,7 +13,9 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.http.HttpMethod;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TwitterHttpHelper implements HttpHelper {
 
   /**
@@ -38,6 +40,17 @@ public class TwitterHttpHelper implements HttpHelper {
    * @see AccessKey
    */
   public TwitterHttpHelper(AccessKey key) {
+    this.consumer = new CommonsHttpOAuthConsumer(key.getConsumerKey(), key.getConsumerSecret());
+    this.consumer.setTokenWithSecret(key.getAccessToken(), key.getTokenSecret());
+    this.httpClient = HttpClientBuilder.create().build();
+  }
+
+  /**
+   * Default constructor
+   */
+  public TwitterHttpHelper() {
+    AccessKey key = new AccessKey();
+    key.loadFromEnv();
     this.consumer = new CommonsHttpOAuthConsumer(key.getConsumerKey(), key.getConsumerSecret());
     this.consumer.setTokenWithSecret(key.getAccessToken(), key.getTokenSecret());
     this.httpClient = HttpClientBuilder.create().build();
