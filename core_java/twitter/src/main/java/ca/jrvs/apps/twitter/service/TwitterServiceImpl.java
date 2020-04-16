@@ -1,6 +1,6 @@
 package ca.jrvs.apps.twitter.service;
 
-import ca.jrvs.apps.twitter.dao.TwitterDao;
+import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.model.Tweet;
 import ca.jrvs.apps.twitter.utils.TweetUtil;
 import java.util.Arrays;
@@ -12,10 +12,10 @@ import org.slf4j.LoggerFactory;
 
 public class TwitterServiceImpl implements Service {
 
-  private final TwitterDao dao;
+  private final CrdDao<Tweet, String> dao;
   private final Logger logger = LoggerFactory.getLogger(TwitterServiceImpl.class);
 
-  public TwitterServiceImpl(TwitterDao dao) {
+  public TwitterServiceImpl(CrdDao<Tweet, String> dao) {
     this.dao = dao;
   }
 
