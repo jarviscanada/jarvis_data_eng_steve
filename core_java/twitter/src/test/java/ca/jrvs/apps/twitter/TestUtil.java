@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import ca.jrvs.apps.twitter.model.Tweet;
-import ca.jrvs.apps.twitter.utils.TweetUtil;
 
 public class TestUtil {
 
@@ -16,18 +15,15 @@ public class TestUtil {
   public static final String CAUGHT = "Exception Caught: ";
   public static final double LONGITUDE = 135d;
   public static final double LATITUDE = 90d;
-  private static final String[] FIELDS_WITH_NULL_AND_MISTYPED;
 
-  static {
-    FIELDS_WITH_NULL_AND_MISTYPED = TweetUtil.getAllFields();
-    // someone miss-typed "created_at"
-    FIELDS_WITH_NULL_AND_MISTYPED[0] = "create_at";
-    // someone doesn't like "id"
-    FIELDS_WITH_NULL_AND_MISTYPED[1] = null;
-  }
-
-  public static String[] getFieldsWithNullAndMistyped() {
-    return FIELDS_WITH_NULL_AND_MISTYPED.clone();
+  public static void replaceField(String[] fields, String old, String replacement) {
+    for (int i = 0; i < fields.length; i++) {
+      if (fields[i].equals(old)) {
+        fields[i] = replacement;
+        return;
+      }
+    }
+    throw new IllegalArgumentException("Input array doesn't have field: " + old);
   }
 
   public static void checkTweet(Tweet tweet) {

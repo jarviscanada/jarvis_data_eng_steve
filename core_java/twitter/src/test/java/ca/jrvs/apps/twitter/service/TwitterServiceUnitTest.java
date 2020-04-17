@@ -3,12 +3,15 @@ package ca.jrvs.apps.twitter.service;
 import static ca.jrvs.apps.twitter.TestUtil.CAUGHT;
 import static ca.jrvs.apps.twitter.TestUtil.FAKE_ID;
 import static ca.jrvs.apps.twitter.TestUtil.TEXT;
-import static ca.jrvs.apps.twitter.TestUtil.getFieldsWithNullAndMistyped;
+import static ca.jrvs.apps.twitter.TestUtil.replaceField;
 import static ca.jrvs.apps.twitter.example.JsonParserExample.TWEET_JSON_STR;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.LATITUDE_MAX;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.LONGITUDE_MIN;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.TWEET_LEN_MAX;
+import static ca.jrvs.apps.twitter.utils.TweetUtil.getAllFields;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -91,11 +94,16 @@ public class TwitterServiceUnitTest {
   public void showTweet() {
     when(dao.findById(anyString())).thenReturn(expectedTweet);
 
-    String[] fields = getFieldsWithNullAndMistyped();
+    String[] fields = getAllFields();
+    // someone miss-typed "created_at"
+    replaceField(fields, "created_at", "create_at");
+    // someone doesn't like "id"
+    replaceField(fields, "id", null);
+
     Tweet tweet = service.showTweet(FAKE_ID, fields);
-    TweetUtil.clearField(expectedTweet, "created_at");
-    TweetUtil.clearField(expectedTweet, "id");
-    assertEquals(expectedTweet, tweet);
+    assertNull(tweet.getCreateAt());
+    assertNull(tweet.getId());
+    assertNotNull(tweet.getIdString());
 
     try {
       service.showTweet(makeString(5, '.'), fields);

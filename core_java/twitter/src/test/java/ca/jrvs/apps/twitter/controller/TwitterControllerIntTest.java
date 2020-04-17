@@ -6,11 +6,12 @@ import static ca.jrvs.apps.twitter.TestUtil.LONGITUDE;
 import static ca.jrvs.apps.twitter.TestUtil.MENTION;
 import static ca.jrvs.apps.twitter.TestUtil.TEXT;
 import static ca.jrvs.apps.twitter.TestUtil.checkTweet;
-import static ca.jrvs.apps.twitter.TestUtil.getFieldsWithNullAndMistyped;
+import static ca.jrvs.apps.twitter.TestUtil.replaceField;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.CMD_DEL;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.CMD_POST;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.CMD_SHOW;
 import static ca.jrvs.apps.twitter.utils.TweetUtil.COORD_SEP;
+import static ca.jrvs.apps.twitter.utils.TweetUtil.getAllFields;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -60,7 +61,12 @@ public class TwitterControllerIntTest {
     postedTweets.forEach(TestUtil::checkTweet);
 
     logger.info("Testing find...");
-    String[] fields = getFieldsWithNullAndMistyped();
+    String[] fields = getAllFields();
+    // someone miss-typed "created_at"
+    replaceField(fields, "created_at", "create_at");
+    // someone doesn't like "id"
+    replaceField(fields, "id", null);
+
     String fieldsString = TweetUtil.fieldsToString(fields);
     logger.info(fieldsString);
 

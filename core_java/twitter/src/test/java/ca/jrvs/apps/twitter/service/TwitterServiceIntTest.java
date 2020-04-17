@@ -5,9 +5,6 @@ import static ca.jrvs.apps.twitter.TestUtil.LATITUDE;
 import static ca.jrvs.apps.twitter.TestUtil.LONGITUDE;
 import static ca.jrvs.apps.twitter.TestUtil.MENTION;
 import static ca.jrvs.apps.twitter.TestUtil.TEXT;
-import static ca.jrvs.apps.twitter.TestUtil.checkTweet;
-import static ca.jrvs.apps.twitter.TestUtil.getFieldsWithNullAndMistyped;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.twitter.TestUtil;
@@ -51,17 +48,11 @@ public class TwitterServiceIntTest {
     postedTweets.forEach(TestUtil::checkTweet);
 
     logger.info("Testing find...");
-    String[] fields = getFieldsWithNullAndMistyped();
-
     List<Tweet> lastTweets = postedTweets.stream()
         .map(Tweet::getIdString)
-        .map(id -> service.showTweet(id, fields))
+        .map(id -> service.showTweet(id, null))
         .collect(Collectors.toList());
-    lastTweets.forEach(t -> {
-      checkTweet(t);
-      assertNull(t.getCreateAt());
-      assertNull(t.getId());
-    });
+    lastTweets.forEach(TestUtil::checkTweet);
 
     logger.info("Testing delete...");
     String[] ids = lastTweets.stream()
