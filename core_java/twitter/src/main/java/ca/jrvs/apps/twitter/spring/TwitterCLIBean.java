@@ -5,6 +5,7 @@ import ca.jrvs.apps.twitter.controller.Controller;
 import ca.jrvs.apps.twitter.controller.TwitterController;
 import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
+import ca.jrvs.apps.twitter.dao.helper.AccessKey;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
@@ -46,10 +47,12 @@ public class TwitterCLIBean {
   @Bean
   HttpHelper helper() {
     return new TwitterHttpHelper(
-        System.getenv("consumerKey"),
-        System.getenv("consumerSecret"),
-        System.getenv("accessToken"),
-        System.getenv("TokenSecret")
+        new AccessKey(
+            System.getenv("consumerKey"),
+            System.getenv("consumerSecret"),
+            System.getenv("accessToken"),
+            System.getenv("TokenSecret")
+        )
     );
   }
 

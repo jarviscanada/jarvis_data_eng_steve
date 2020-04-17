@@ -24,15 +24,15 @@ public class TwitterHttpHelper implements HttpHelper {
   private final OAuthConsumer consumer;
   private final HttpClient httpClient;
 
-  /**
-   * Constructor setup dependencies using secrets
-   */
-  public TwitterHttpHelper(String consumerKey, String consumerSecret,
-      String accessToken, String tokenSecret) {
-    this.consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
-    this.consumer.setTokenWithSecret(accessToken, tokenSecret);
-    this.httpClient = HttpClientBuilder.create().build();
-  }
+//  /**
+//   * Constructor setup dependencies using secrets
+//   */
+//  public TwitterHttpHelper(String consumerKey, String consumerSecret,
+//      String accessToken, String tokenSecret) {
+//    this.consumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
+//    this.consumer.setTokenWithSecret(accessToken, tokenSecret);
+//    this.httpClient = HttpClientBuilder.create().build();
+//  }
 
   /**
    * Constructor setup dependencies using AccessKey

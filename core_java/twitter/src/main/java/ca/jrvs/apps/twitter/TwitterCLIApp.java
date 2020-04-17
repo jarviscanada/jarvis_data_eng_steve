@@ -8,6 +8,7 @@ import ca.jrvs.apps.twitter.controller.Controller;
 import ca.jrvs.apps.twitter.controller.TwitterController;
 import ca.jrvs.apps.twitter.dao.CrdDao;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
+import ca.jrvs.apps.twitter.dao.helper.AccessKey;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
@@ -31,12 +32,9 @@ public class TwitterCLIApp {
   }
 
   public static void main(String[] args) {
-    HttpHelper helper = new TwitterHttpHelper(
-        System.getenv("consumerKey"),
-        System.getenv("consumerSecret"),
-        System.getenv("accessToken"),
-        System.getenv("TokenSecret")
-    );
+    AccessKey key = new AccessKey();
+    key.loadFromEnv();
+    HttpHelper helper = new TwitterHttpHelper(key);
     CrdDao<Tweet, String> dao = new TwitterDao(helper);
     Service service = new TwitterService(dao);
     Controller controller = new TwitterController(service);
