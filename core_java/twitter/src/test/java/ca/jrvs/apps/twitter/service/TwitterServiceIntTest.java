@@ -9,7 +9,6 @@ import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.twitter.TestUtil;
 import ca.jrvs.apps.twitter.dao.TwitterDao;
-import ca.jrvs.apps.twitter.dao.helper.AccessKey;
 import ca.jrvs.apps.twitter.dao.helper.HttpHelper;
 import ca.jrvs.apps.twitter.dao.helper.TwitterHttpHelper;
 import ca.jrvs.apps.twitter.model.Tweet;
@@ -29,10 +28,7 @@ public class TwitterServiceIntTest {
 
   @Before
   public void setUp() {
-    AccessKey key = new AccessKey();
-    key.loadFromEnv();
-    logger.info(key.toString());
-    HttpHelper helper = new TwitterHttpHelper(key);
+    HttpHelper helper = new TwitterHttpHelper();
     TwitterDao dao = new TwitterDao(helper);
     this.service = new TwitterService(dao);
   }
