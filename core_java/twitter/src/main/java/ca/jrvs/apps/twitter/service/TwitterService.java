@@ -31,7 +31,7 @@ public class TwitterService implements Service {
   @Override
   public Tweet showTweet(String id, String[] fields) {
     TweetUtil.validateId(id);
-    Tweet tweet = dao.findById(id);
+    Tweet tweet = TweetUtil.cloneTweet(dao.findById(id));
     if (fields != null) {
       // validate input fields
       Arrays.stream(fields)
