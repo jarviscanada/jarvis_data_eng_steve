@@ -16,6 +16,9 @@ public class TestUtil {
   public static final double LONGITUDE = 135d;
   public static final double LATITUDE = 90d;
 
+  /**
+   * Find and replace some value in a string array
+   */
   public static void replaceField(String[] fields, String old, String replacement) {
     for (int i = 0; i < fields.length; i++) {
       if (fields[i].equals(old)) {
@@ -26,6 +29,9 @@ public class TestUtil {
     throw new IllegalArgumentException("Input array doesn't have field: " + old);
   }
 
+  /**
+   * Check if the input tweet has the preset longitude, latitude, and hashtag
+   */
   public static void checkTweet(Tweet tweet) {
     assertNotNull(tweet.getText());
     assertNotNull(tweet.getCoordinates());

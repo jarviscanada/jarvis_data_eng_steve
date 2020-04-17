@@ -62,12 +62,18 @@ public class TweetUtil {
     return tweet;
   }
 
+  /**
+   * @throws IllegalArgumentException if input is not a valid id
+   */
   public static void validateId(String id) {
     if (!ID_PATTERN.matcher(id).matches()) {
       throw new IllegalArgumentException("Invalid id: " + id);
     }
   }
 
+  /**
+   * @throws IllegalArgumentException if input tweet has invalid text or coordinates
+   */
   public static void validateTweet(Tweet tweet) {
     String text = tweet.getText();
     if (text == null) {
@@ -105,6 +111,12 @@ public class TweetUtil {
     }
   }
 
+  /**
+   * Set a specific field of the tweet to null
+   *
+   * @param fieldName Json property of the field to clear
+   * @see Tweet
+   */
   public static void clearField(Tweet tweet, String fieldName) {
     try {
       SETTER_TABLE.get(fieldName).invoke(tweet, (Object) null);
@@ -148,6 +160,11 @@ public class TweetUtil {
 //    }
   }
 
+  /**
+   * Convert an array of Tweet fields to the string accepted by TwitterController
+   *
+   * @see ca.jrvs.apps.twitter.controller.TwitterController#showTweet(String[])
+   */
   public static String fieldsToString(String[] fields) {
     StringBuilder builder = new StringBuilder();
     for (String f : fields) {
@@ -156,6 +173,9 @@ public class TweetUtil {
     return builder.toString();
   }
 
+  /**
+   * @return a deep copy of the input tweet
+   */
   public static Tweet cloneTweet(Tweet tweet) {
     try {
       String jsonString = JsonParser.toJson(tweet, false, true);
