@@ -12,11 +12,21 @@ which will help me to develop larger applications in the future.
 
 - **JDK: >= 8**
 
-- **Maven: >= 3.6.0** 
+- **Maven: >= 3.6.0**
+
+- **Twitter developer account**
 
 ### Build
 ```
 mvn clean package -DskipTests
+```
+### Setup
+```sh
+# replace the mask with your own api secret
+export consumerKey=XXXXXXXX
+export consumerSecret=XXXXX
+export accessToken=XXXXXXXX
+export tokenSecret=XXXXXXXX
 ```
 ### Run
 ```
