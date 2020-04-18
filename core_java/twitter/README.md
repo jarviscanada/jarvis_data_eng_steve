@@ -17,7 +17,7 @@ which will help me to develop larger applications in the future.
 - **Twitter developer account**
 
 ### Build
-```
+```sh
 mvn clean package -DskipTests
 ```
 ### Setup
