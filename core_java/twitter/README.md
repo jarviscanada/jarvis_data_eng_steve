@@ -15,11 +15,11 @@ which will help me to develop larger applications in the future.
 - **Maven: >= 3.6.0** 
 
 ### Build
-```sh
+```
 mvn clean package -DskipTests
 ```
 ### Run
-```sh
+```
 java -jar target/java_apps-1.0-SNAPSHOT.jar [post | show | delete] [options]
 ```
 
