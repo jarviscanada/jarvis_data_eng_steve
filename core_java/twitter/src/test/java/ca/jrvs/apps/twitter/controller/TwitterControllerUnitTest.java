@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 @RunWith(MockitoJUnitRunner.class)
 public class TwitterControllerUnitTest {
 
-  private static final String FIELDS = "id,text,retweet_count";
   private final Logger logger = LoggerFactory.getLogger(TwitterControllerUnitTest.class);
 
   @Mock
@@ -74,14 +73,16 @@ public class TwitterControllerUnitTest {
   @Test
   public void showTweet() {
     when(service.showTweet(anyString(), any())).thenReturn(expectedTweet);
-    Tweet tweet = controller.showTweet(new String[]{CMD_SHOW, FAKE_ID, FIELDS});
+
+    String fields = "id,text,retweet_count";
+    Tweet tweet = controller.showTweet(new String[]{CMD_SHOW, FAKE_ID, fields});
     assertEquals(expectedTweet, tweet);
 
     tweet = controller.showTweet(new String[]{CMD_SHOW, FAKE_ID});
     assertEquals(expectedTweet, tweet);
 
     try {
-      controller.showTweet(new String[]{CMD_SHOW, FAKE_ID, FIELDS, TEXT});
+      controller.showTweet(new String[]{CMD_SHOW, FAKE_ID, fields, TEXT});
       fail();
     } catch (IllegalArgumentException e) {
       logger.info(CAUGHT + e.getMessage());
