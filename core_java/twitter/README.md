@@ -6,10 +6,33 @@ By implementing this project, I have been familiar with many key concepts in web
 such as HTTP, JSON, MVC, and Spring framework. I also get valuable hands-on experience in testing and refactoring code,
 which will help me to develop larger applications in the future.
 
+## Quick Start
+
+### Requirements
+
+- **JDK: >= 8**
+
+- **Maven: >= 3.6.0** 
+
+### Build
+```sh
+mvn clean package -DskipTests
+```
+### Run
+```sh
+java -jar target/java_apps-1.0-SNAPSHOT.jar [post | show | delete] [options]
+```
+
+### Usage
+
+
 # Design
-- UML diagram
+
+<img src="../../assets/tw_uml.png" alt="drawing"/>
 
 ## Components
+
+<img src="../../assets/tw_dep.jpg" alt="drawing"/>
 
 1. [**HttpHelper**](./src/main/java/ca/jrvs/apps/twitter/dao/helper):
 Given a Uniform Resource Identifier (URI) and a method (either GET or POST),
@@ -32,13 +55,13 @@ without doing anything related to business logic.
 On top of all layers, the application instantiates other components and trigger `run` method
 which calls controller methods and print the response to command line.
 
+## Model
+<img src="../../assets/tw_model.png" alt="drawing"/>
 
-# Quick Start
-- how to package your app using mvn
-- how to run your app and explain option
+Models are implemented with plain old Java object (POJO) which is a class with private member variables and public getter and setters. This class encapsulates Tweet data (Tweet objects) which often display in JSON format. 
+The full version of the [Tweet object](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
+is complicated, hence we implemented a simplified one. Below is an example Tweet JSON: 
 
-# Model
-Talk about tweet model
 ```json
 {
    "created_at":"Mon Feb 18 21:24:39 +0000 2019",
