@@ -25,6 +25,51 @@ java -jar target/java_apps-1.0-SNAPSHOT.jar [post | show | delete] [options]
 
 ### Usage
 
+#### Create 
+Create a tweet with a geotag and print the created tweet object (simplified version) in JSON format.
+```
+USAGE:
+TwitterCLI "post" "tweet_text" "latitude:longitude"
+
+
+Arguments:
+tweet_text         - tweet_text cannot exceed 140 UTF-8 encoded characters
+latitude:longitude - Geo location
+
+e.g.
+TwitterCLI post "test post" "0:0"
+```
+
+#### Show
+Lookup a tweet by ID and print the tweet object in JSON format. Optionally you can specify a subset of fields
+to show. Available fields: `created_at`, `id`, `id_str`, `text`, `entities`, `coordiantes`, `retweet_count`,
+`favorite_count`, `favorited`, `retweeted`. 
+
+```
+USAGE:
+TwitterCLI show tweet_id [field1,fields2,...]
+
+Arguments:
+tweet_id              - Tweet ID. Same as id_str in the tweet object
+[field1,fields2,...]  - A comma-separated list of top-level fields from the tweet object
+
+e.g. 
+TwitterCLI show 1097607853932564480 "id,text,retweet_count"
+TwitterCLI show 1097607853932564480 ## show all fields
+```
+
+#### Delete
+
+Delete a list of tweets by id and print deleted tweet object.
+```
+USAGE: TwitterCLI delete [id1,id2,..]
+
+Arguments:
+tweet_ids - A comma-separated list of tweet ids, at least 1 should be given
+
+e.g.
+TwitterCLI delete 1200145224103841792
+```
 
 # Design
 
@@ -56,11 +101,12 @@ On top of all layers, the application instantiates other components and trigger 
 which calls controller methods and print the response to command line.
 
 ## Model
-<img src="../../assets/tw_model.png" alt="drawing"/>
-
 Models are implemented with plain old Java object (POJO) which is a class with private member variables and public getter and setters. This class encapsulates Tweet data (Tweet objects) which often display in JSON format. 
 The full version of the [Tweet object](https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/tweet-object)
-is complicated, hence we implemented a simplified one. Below is an example Tweet JSON: 
+is complicated, hence we designed a simplified one: 
+<img src="../../assets/tw_model.png" alt="drawing"/>
+
+### Example Tweet JSON 
 
 ```json
 {
@@ -81,8 +127,10 @@ is complicated, hence we implemented a simplified one. Below is an example Tweet
 ```
 
 # Improvements
-- at least three improvements
+- Develop more functionalities such as user-timeline lookup. 
 
-- at least three improvements
+- Let the app work interactively.
 
-- at least three improvements
+- Make a GUI.
+
+- Extend the current Tweet model so users can get more from Twitter via this client app. 
