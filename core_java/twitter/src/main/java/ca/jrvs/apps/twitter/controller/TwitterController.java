@@ -47,8 +47,7 @@ public class TwitterController implements Controller {
       lon = Double.parseDouble(coordinateArray[1]);
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException(
-          e.getMessage() + "Invalid location format\n" + POST_USAGE,
-          e
+          "Invalid location format\n" + POST_USAGE, e
       );
     }
     return service.postTweet(TweetUtil.buildTweet(text, lon, lat));
