@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class MarketDataDao implements CrudRepository<IexQuote, String> {
 
+  private static final Pattern TICKER_PATTERN = Pattern.compile("^[a-zA-Z0-9]+$");
   private static final String IEX_BATCH_PATH =
       "/stock/market/batch?symbols=%s&types=quote&token=";
   private final String IEX_BATCH_URL;
@@ -43,6 +45,12 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
       HttpClientConnectionManager connectionManager) {
     this.IEX_BATCH_URL = config.getHost() + IEX_BATCH_PATH + config.getToken();
     this.connectionManager = connectionManager;
+  }
+
+  private static void validateTicker(String ticker) {
+    if (!TICKER_PATTERN.matcher(ticker).matches()) {
+      throw new IllegalArgumentException("Invalid ticker: " + ticker);
+    }
   }
 
   @Override
@@ -89,9 +97,13 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    * @return a list of IexQuote object
    * @throws DataRetrievalFailureException if unable to retrieve quotes due to HTTP failure,
    *                                       unexpected status code, or other problems
+   * @throws IllegalArgumentException      if there exists invalid ticker
    */
   @Override
   public Iterable<IexQuote> findAllById(Iterable<String> tickers) {
+    for (String t : tickers) {
+      validateTicker(t);
+    }
     String url = String.format(IEX_BATCH_URL, String.join(",", tickers));
     Optional<String> results = executeHttpGet(url);
 
