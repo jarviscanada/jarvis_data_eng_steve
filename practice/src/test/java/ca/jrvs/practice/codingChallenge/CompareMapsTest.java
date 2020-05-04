@@ -45,8 +45,8 @@ public class CompareMapsTest {
 
   @Test
   public void compareMapsManual() {
-    assertTrue(compare.compareMapsDefault(capitalOne, capitalTwo));
-    assertFalse(compare.compareMapsDefault(capitalOne, capitalThree));
-    assertFalse(compare.compareMapsDefault(capitalOne, cityOne));
+    assertTrue(compare.compareMapsManual(capitalOne, capitalTwo));
+    assertFalse(compare.compareMapsManual(capitalOne, capitalThree));
+    assertFalse(compare.compareMapsManual(capitalOne, cityOne));
   }
 }
