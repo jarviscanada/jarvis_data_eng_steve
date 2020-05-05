@@ -5,14 +5,14 @@ public class ListNode<E> {
   E val;
   ListNode<E> next;
 
-  ListNode() {
+  public ListNode() {
   }
 
-  ListNode(E val) {
+  public ListNode(E val) {
     this.val = val;
   }
 
-  ListNode(E val, ListNode<E> next) {
+  public ListNode(E val, ListNode<E> next) {
     this.val = val;
     this.next = next;
   }
