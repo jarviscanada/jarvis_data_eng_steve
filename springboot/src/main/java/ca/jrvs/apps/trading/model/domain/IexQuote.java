@@ -124,7 +124,7 @@ public class IexQuote {
    * Refers to the size of the last trade on IEX.
    */
   @JsonProperty("iexRealtimeSize")
-  private Long iexRealtimeSize;
+  private Integer iexRealtimeSize;
 
   /**
    * Refers to the last update time of iexRealtimePrice in milliseconds since midnight Jan 1, 1970
@@ -244,7 +244,7 @@ public class IexQuote {
    * Refers to amount of shares on the bid on IEX.
    */
   @JsonProperty("iexBidSize")
-  private Long iexBidSize;
+  private Integer iexBidSize;
 
   /**
    * Refers to the best ask price on IEX.
@@ -256,7 +256,7 @@ public class IexQuote {
    * Refers to amount of shares on the ask on IEX.
    */
   @JsonProperty("iexAskSize")
-  private Long iexAskSize;
+  private Integer iexAskSize;
 
   /**
    * is calculated in real time using latestPrice.
@@ -430,11 +430,11 @@ public class IexQuote {
     this.iexRealtimePrice = iexRealtimePrice;
   }
 
-  public Long getIexRealtimeSize() {
+  public Integer getIexRealtimeSize() {
     return iexRealtimeSize;
   }
 
-  public void setIexRealtimeSize(Long iexRealtimeSize) {
+  public void setIexRealtimeSize(Integer iexRealtimeSize) {
     this.iexRealtimeSize = iexRealtimeSize;
   }
 
@@ -574,11 +574,11 @@ public class IexQuote {
     this.iexBidPrice = iexBidPrice;
   }
 
-  public Long getIexBidSize() {
+  public Integer getIexBidSize() {
     return iexBidSize;
   }
 
-  public void setIexBidSize(Long iexBidSize) {
+  public void setIexBidSize(Integer iexBidSize) {
     this.iexBidSize = iexBidSize;
   }
 
@@ -590,11 +590,11 @@ public class IexQuote {
     this.iexAskPrice = iexAskPrice;
   }
 
-  public Long getIexAskSize() {
+  public Integer getIexAskSize() {
     return iexAskSize;
   }
 
-  public void setIexAskSize(Long iexAskSize) {
+  public void setIexAskSize(Integer iexAskSize) {
     this.iexAskSize = iexAskSize;
   }
 
