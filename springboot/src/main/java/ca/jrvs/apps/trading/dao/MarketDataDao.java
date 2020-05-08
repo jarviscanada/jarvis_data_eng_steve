@@ -70,7 +70,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    */
   @Override
   public Optional<IexQuote> findById(String ticker) {
-    List<IexQuote> quotes = (List<IexQuote>) findAllById(Collections.singletonList(ticker));
+    List<IexQuote> quotes = findAllById(Collections.singletonList(ticker));
     if (quotes.size() == 0) {
       return Optional.empty();
     } else if (quotes.size() == 1) {
@@ -100,7 +100,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    * @throws IllegalArgumentException      if there exists invalid ticker
    */
   @Override
-  public Iterable<IexQuote> findAllById(Iterable<String> tickers) {
+  public List<IexQuote> findAllById(Iterable<String> tickers) {
     for (String t : tickers) {
       validateTicker(t);
     }
