@@ -1,5 +1,8 @@
 package ca.jrvs.apps.trading.dao;
 
+import static ca.jrvs.apps.trading.TestUtil.NOT_ID;
+import static ca.jrvs.apps.trading.TestUtil.getQuoteRbc;
+import static ca.jrvs.apps.trading.TestUtil.getQuoteShop;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -25,27 +28,8 @@ public class QuoteDaoIntTest {
   @Autowired
   private QuoteDao dao;
 
-  private final static Quote savedQuote1;
-  private final static Quote savedQuote2;
-  private final static String NOT_ID = "FOO";
-
-  static {
-    savedQuote1 = new Quote();
-    savedQuote1.setAskPrice(1000d);
-    savedQuote1.setAskSize(10);
-    savedQuote1.setBidPrice(1000.2d);
-    savedQuote1.setBidSize(10);
-    savedQuote1.setId("SHOP");
-    savedQuote1.setLastPrice(1000.1d);
-
-    savedQuote2 = new Quote();
-    savedQuote2.setAskPrice(100d);
-    savedQuote2.setAskSize(100);
-    savedQuote2.setBidPrice(100.2d);
-    savedQuote2.setBidSize(100);
-    savedQuote2.setId("RY");
-    savedQuote2.setLastPrice(100.1d);
-  }
+  private final static Quote savedQuote1 = getQuoteShop();
+  private final static Quote savedQuote2 = getQuoteRbc();
 
   @Before
   public void insertTwo() {
@@ -98,12 +82,13 @@ public class QuoteDaoIntTest {
   @Test
   public void update() {
     List<Quote> all = dao.findAll();
-    all.get(0).setAskSize(20);
+    int newAskSize = all.get(0).getAskSize() + 1;
+    all.get(0).setAskSize(newAskSize);
     dao.saveAll(all);
 
     Optional<Quote> quote1 = dao.findById(all.get(0).getID());
     assertTrue(quote1.isPresent());
-    assertEquals(20, quote1.get().getAskSize().intValue());
+    assertEquals(newAskSize, quote1.get().getAskSize().intValue());
 
     Optional<Quote> quote2 = dao.findById(all.get(1).getID());
     assertTrue(quote2.isPresent());
