@@ -23,6 +23,18 @@ public class Quote implements Entity<String> {
   }
 
   @Override
+  public String toString() {
+    return "Quote{" +
+        "ticker='" + ticker + '\'' +
+        ", lastPrice=" + lastPrice +
+        ", bidPrice=" + bidPrice +
+        ", bidSize=" + bidSize +
+        ", askPrice=" + askPrice +
+        ", askSize=" + askSize +
+        '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) {
       return true;
