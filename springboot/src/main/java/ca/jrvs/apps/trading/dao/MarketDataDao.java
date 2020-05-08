@@ -185,12 +185,9 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
 
   private String parseResponseBody(HttpResponse response) {
     HttpEntity entity = response.getEntity();
-    if (entity == null) {
-      throw new DataRetrievalFailureException("Empty response body");
-    }
     try {
       return EntityUtils.toString(entity);
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new DataRetrievalFailureException("Failed to convert Entity to String", e);
     }
   }
