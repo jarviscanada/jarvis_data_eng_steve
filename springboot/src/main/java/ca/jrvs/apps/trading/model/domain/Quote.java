@@ -9,6 +9,19 @@ public class Quote implements Entity<String> {
   private Double askPrice;
   private Integer askSize;
 
+  public Quote() {
+  }
+
+  public Quote(String ticker, Double lastPrice, Double bidPrice, Integer bidSize,
+      Double askPrice, Integer askSize) {
+    this.ticker = ticker;
+    this.lastPrice = lastPrice;
+    this.bidPrice = bidPrice;
+    this.bidSize = bidSize;
+    this.askPrice = askPrice;
+    this.askSize = askSize;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
