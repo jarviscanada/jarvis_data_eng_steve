@@ -3,16 +3,15 @@ package ca.jrvs.apps.trading;
 import ca.jrvs.apps.trading.dao.config.MarketDataConfig;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class AppConfig {
-
-  private final Logger logger = LoggerFactory.getLogger(AppConfig.class);
+@ComponentScan(basePackages = {"ca.jrvs.apps.trading.dao", "ca.jrvs.apps.trading.service"})
+public class TestConfig {
 
   @Bean
   public MarketDataConfig marketDataConfig() {
@@ -23,24 +22,22 @@ public class AppConfig {
   }
 
   @Bean
-  public PoolingHttpClientConnectionManager poolingHttpClientConnectionManager(){
+  public DataSource dataSource() {
+    String url = System.getenv("PSQL_URL");
+    String user = System.getenv("PSQL_USER");
+    String password = System.getenv("PSQL_PASSWORD");
+    BasicDataSource dataSource = new BasicDataSource();
+    dataSource.setUrl(url);
+    dataSource.setUsername(user);
+    dataSource.setPassword(password);
+    return dataSource;
+  }
+
+  @Bean
+  public HttpClientConnectionManager httpClientConnectionManager() {
     PoolingHttpClientConnectionManager manager = new PoolingHttpClientConnectionManager();
     manager.setMaxTotal(50);
     manager.setDefaultMaxPerRoute(50);
     return manager;
   }
-
-  @Bean
-  public DataSource dataSource() {
-    String url = System.getenv("PSQL_URL");
-    String user = System.getenv("PSQL_USER");
-    String password = System.getenv("PSQL_PASSWORD");
-
-    BasicDataSource basicDataSource = new BasicDataSource();
-    basicDataSource.setUrl(url);
-    basicDataSource.setUsername(user);
-    basicDataSource.setPassword(password);
-    return basicDataSource;
-  }
-
 }
