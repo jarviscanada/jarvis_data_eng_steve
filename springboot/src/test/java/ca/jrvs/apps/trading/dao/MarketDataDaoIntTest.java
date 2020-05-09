@@ -1,7 +1,9 @@
 package ca.jrvs.apps.trading.dao;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.trading.dao.config.MarketDataConfig;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
@@ -31,15 +33,27 @@ public class MarketDataDaoIntTest {
 
   @Test
   public void findById() {
-    String ticker = "AMZN";
-    Optional<IexQuote> quote = dao.findById(ticker);
-    assertTrue(quote.isPresent());
-    assertEquals(ticker, quote.get().getSymbol());
+    String ticker1 = "FB";
+    assertTrue(dao.existsById(ticker1));
+    Optional<IexQuote> quote1 = dao.findById(ticker1);
+    assertTrue(quote1.isPresent());
+    assertEquals(ticker1, quote1.get().getSymbol());
+
+    String ticker2 = "FB2";
+    assertFalse(dao.existsById(ticker2));
+    Optional<IexQuote> quote2 = dao.findById(ticker2);
+    assertTrue(quote2.isEmpty());
+
+    try {
+      dao.findById("?");
+      fail();
+    } catch (IllegalArgumentException ignored) {
+    }
   }
 
   @Test
   public void findAllById() {
-    List<IexQuote> quoteList = (List<IexQuote>) dao.findAllById(Arrays.asList("FB", "AMZN"));
+    List<IexQuote> quoteList = dao.findAllById(Arrays.asList("FB", "AMZN"));
     assertEquals(2, quoteList.size());
     quoteList.forEach(Assert::assertNotNull);
   }
