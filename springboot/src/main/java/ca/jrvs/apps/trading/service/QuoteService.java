@@ -39,16 +39,19 @@ public class QuoteService {
 
   /**
    * Update quote table against IEX source
+   *
+   * @return saved quotes
    */
-  public void updateMarketData() {
+  public List<Quote> updateMarketData() {
     List<String> tickers = quoteDao.findAll()
         .stream()
         .map(Quote::getID)
         .collect(Collectors.toList());
-    marketDataDao.findAllById(tickers)
+    return marketDataDao.findAllById(tickers)
         .stream()
         .map(QuoteService::buildQuoteFromIexQuote)
-        .forEach(quoteDao::save);
+        .map(quoteDao::save)
+        .collect(Collectors.toList());
   }
 
   /**
