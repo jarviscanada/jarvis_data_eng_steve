@@ -45,7 +45,7 @@ public class QuoteService {
   public List<Quote> updateMarketData() {
     List<String> tickers = quoteDao.findAll()
         .stream()
-        .map(Quote::getID)
+        .map(Quote::getId)
         .collect(Collectors.toList());
     return marketDataDao.findAllById(tickers)
         .stream()

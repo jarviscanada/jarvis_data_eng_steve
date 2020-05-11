@@ -47,11 +47,11 @@ public class QuoteDaoIntTest {
     List<Quote> all = dao.findAll();
     assertEquals(2, all.size());
 
-    Optional<Quote> quote1 = dao.findById(savedQuote1.getID());
+    Optional<Quote> quote1 = dao.findById(savedQuote1.getId());
     assertTrue(quote1.isPresent());
     assertEquals(savedQuote1, quote1.get());
 
-    Optional<Quote> quote2 = dao.findById(savedQuote2.getID());
+    Optional<Quote> quote2 = dao.findById(savedQuote2.getId());
     assertTrue(quote2.isPresent());
     assertEquals(savedQuote2, quote2.get());
 
@@ -62,17 +62,17 @@ public class QuoteDaoIntTest {
   @Test
   public void delete() {
     assertEquals(2, dao.count());
-    assertTrue(dao.existsById(savedQuote1.getID()));
-    assertTrue(dao.existsById(savedQuote2.getID()));
+    assertTrue(dao.existsById(savedQuote1.getId()));
+    assertTrue(dao.existsById(savedQuote2.getId()));
 
-    dao.deleteById(savedQuote1.getID());
+    dao.deleteById(savedQuote1.getId());
     assertEquals(1, dao.count());
-    assertFalse(dao.existsById(savedQuote1.getID()));
-    assertTrue(dao.existsById(savedQuote2.getID()));
+    assertFalse(dao.existsById(savedQuote1.getId()));
+    assertTrue(dao.existsById(savedQuote2.getId()));
 
     dao.delete(savedQuote2);
     assertEquals(0, dao.count());
-    assertFalse(dao.existsById(savedQuote2.getID()));
+    assertFalse(dao.existsById(savedQuote2.getId()));
 
     // do nothing
     dao.delete(savedQuote1);
@@ -86,11 +86,11 @@ public class QuoteDaoIntTest {
     all.get(0).setAskSize(newAskSize);
     dao.saveAll(all);
 
-    Optional<Quote> quote1 = dao.findById(all.get(0).getID());
+    Optional<Quote> quote1 = dao.findById(all.get(0).getId());
     assertTrue(quote1.isPresent());
     assertEquals(newAskSize, quote1.get().getAskSize().intValue());
 
-    Optional<Quote> quote2 = dao.findById(all.get(1).getID());
+    Optional<Quote> quote2 = dao.findById(all.get(1).getId());
     assertTrue(quote2.isPresent());
     assertEquals(savedQuote2, quote2.get());
   }

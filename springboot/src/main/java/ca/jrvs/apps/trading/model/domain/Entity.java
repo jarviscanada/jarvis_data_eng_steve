@@ -2,7 +2,7 @@ package ca.jrvs.apps.trading.model.domain;
 
 public interface Entity<ID> {
 
-  ID getID();
+  ID getId();
 
   void setId(ID id);
 }

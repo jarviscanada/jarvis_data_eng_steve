@@ -49,7 +49,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
         quote.getBidSize(),
         quote.getAskPrice(),
         quote.getAskSize(),
-        quote.getID()
+        quote.getId()
     };
   }
 
@@ -58,7 +58,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
    */
   @Override
   public <Q extends Quote> Q save(Q q) {
-    if (existsById(q.getID())) {
+    if (existsById(q.getId())) {
       updateOne(q);
     } else {
       addOne(q);
@@ -147,7 +147,7 @@ public class QuoteDao implements CrudRepository<Quote, String> {
 
   @Override
   public void delete(Quote quote) {
-    deleteById(quote.getID());
+    deleteById(quote.getId());
   }
 
   @Override

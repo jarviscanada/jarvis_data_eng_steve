@@ -52,7 +52,7 @@ public class Quote implements Entity<String> {
   }
 
   @Override
-  public String getID() {
+  public String getId() {
     return ticker;
   }
 
