@@ -1,12 +1,29 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@javax.persistence.Entity
+@Table
 public class Quote implements Entity<String> {
 
+  @Id
   private String ticker;
+
+  @Column(name = "last_price")
   private Double lastPrice;
+
+  @Column(name = "bid_price")
   private Double bidPrice;
+
+  @Column(name = "bid_size")
   private Integer bidSize;
+
+  @Column(name = "ask_price")
   private Double askPrice;
+
+  @Column(name = "ask_size")
   private Integer askSize;
 
   public Quote() {
