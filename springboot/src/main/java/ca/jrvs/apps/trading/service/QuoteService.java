@@ -1,9 +1,9 @@
 package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
-import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
@@ -19,12 +19,12 @@ public class QuoteService {
   private static final Logger logger = LoggerFactory.getLogger(QuoteService.class);
 
   private final MarketDataDao marketDataDao;
-  private final QuoteDao quoteDao;
+  private final QuoteRepository quoteRepository;
 
   @Autowired
-  public QuoteService(MarketDataDao marketDataDao, QuoteDao quoteDao) {
+  public QuoteService(MarketDataDao marketDataDao, QuoteRepository quoteRepository) {
     this.marketDataDao = marketDataDao;
-    this.quoteDao = quoteDao;
+    this.quoteRepository = quoteRepository;
   }
 
   /**
@@ -43,14 +43,14 @@ public class QuoteService {
    * @return saved quotes
    */
   public List<Quote> updateMarketData() {
-    List<String> tickers = quoteDao.findAll()
+    List<String> tickers = quoteRepository.findAll()
         .stream()
         .map(Quote::getId)
         .collect(Collectors.toList());
     return marketDataDao.findAllById(tickers)
         .stream()
         .map(QuoteService::buildQuoteFromIexQuote)
-        .map(quoteDao::save)
+        .map(quoteRepository::save)
         .collect(Collectors.toList());
   }
 
@@ -88,7 +88,7 @@ public class QuoteService {
   public Quote saveQuote(String ticker) {
     IexQuote iexQuote = findIexQuoteByTicker(ticker);
     Quote dbQuote = buildQuoteFromIexQuote(iexQuote);
-    quoteDao.save(dbQuote);
+    quoteRepository.save(dbQuote);
     return dbQuote;
   }
 
@@ -96,14 +96,14 @@ public class QuoteService {
    * Update a given quote to quote table without validation
    */
   public Quote saveQuote(Quote quote) {
-    return quoteDao.save(quote);
+    return quoteRepository.save(quote);
   }
 
   /**
    * Find all quotes from the quote table
    */
   public List<Quote> findAllQuotes() {
-    return quoteDao.findAll();
+    return quoteRepository.findAll();
   }
 
 }

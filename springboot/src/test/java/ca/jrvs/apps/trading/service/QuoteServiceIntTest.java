@@ -8,8 +8,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.trading.TestConfig;
-import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.Before;
@@ -31,7 +31,7 @@ public class QuoteServiceIntTest {
   private QuoteService service;
 
   @Autowired
-  private QuoteDao quoteDao;
+  private QuoteRepository repository;
 
   private static Quote savedQuote1;
   private static Quote savedQuote2;
@@ -40,11 +40,11 @@ public class QuoteServiceIntTest {
 
   @Before
   public void setUp() {
-    quoteDao.deleteAll();
+    repository.deleteAll();
     savedQuote1 = getQuoteShop();
-    quoteDao.save(savedQuote1);
+    repository.save(savedQuote1);
     savedQuote2 = getQuoteRbc();
-    quoteDao.save(savedQuote2);
+    repository.save(savedQuote2);
   }
 
   @Test
@@ -73,7 +73,7 @@ public class QuoteServiceIntTest {
     HashSet<String> set = new HashSet<>(tickers);
     set.add(savedQuote1.getTicker());
     set.add(savedQuote2.getTicker());
-    assertEquals(set.size(), quoteDao.count());
+    assertEquals(set.size(), repository.count());
   }
 
 }
