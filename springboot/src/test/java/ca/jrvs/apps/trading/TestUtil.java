@@ -1,12 +1,14 @@
 package ca.jrvs.apps.trading;
 
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.model.domain.Trader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TestUtil {
 
-  public final static String NOT_ID = "FB2";
+  public final static String NOT_TICKER = "FB2";
 
   public static Quote getQuoteShop() {
     return new Quote(
@@ -27,4 +29,17 @@ public class TestUtil {
     tickers.add("RY");
     return tickers;
   }
+
+  public static Trader getTraderDavid() {
+    return new Trader(
+        "David", "Tepper", LocalDate.of(1957, 9, 11), "US", "dt@foobar.com"
+    );
+  }
+
+  public static Trader getTraderYasuo() {
+    return new Trader(
+        "Yasuo", "Hamanaka", LocalDate.of(1950, 1, 1), "Japan", "yh@foobar.com"
+    );
+  }
+
 }

@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.service;
 
-import static ca.jrvs.apps.trading.TestUtil.NOT_ID;
+import static ca.jrvs.apps.trading.TestUtil.NOT_TICKER;
 import static ca.jrvs.apps.trading.TestUtil.getQuoteRbc;
 import static ca.jrvs.apps.trading.TestUtil.getQuoteShop;
 import static ca.jrvs.apps.trading.TestUtil.getSomeTickers;
@@ -50,7 +50,7 @@ public class QuoteServiceIntTest {
   @Test
   public void findIexQuoteByTicker() {
     try {
-      service.findIexQuoteByTicker(NOT_ID);
+      service.findIexQuoteByTicker(NOT_TICKER);
       fail();
     } catch (IllegalArgumentException ignored) {
     }
