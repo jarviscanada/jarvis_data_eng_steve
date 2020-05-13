@@ -9,6 +9,7 @@ import java.util.List;
 public class TestUtil {
 
   public final static String NOT_TICKER = "FB2";
+  public final static Integer NOT_ID = 10;
 
   public static Quote getQuoteShop() {
     return new Quote(

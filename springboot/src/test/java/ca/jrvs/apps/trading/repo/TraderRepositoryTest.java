@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.repo;
 
+import static ca.jrvs.apps.trading.TestUtil.NOT_ID;
 import static ca.jrvs.apps.trading.TestUtil.getTraderDavid;
 import static ca.jrvs.apps.trading.TestUtil.getTraderYasuo;
 
@@ -19,7 +20,7 @@ public class TraderRepositoryTest extends BaseRepositoryTest<TraderRepository, T
 
   @Override
   Integer getNonExistId() {
-    return 10;
+    return NOT_ID;
   }
 
   @Override
