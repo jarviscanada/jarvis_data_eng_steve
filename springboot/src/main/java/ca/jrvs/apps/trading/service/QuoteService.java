@@ -6,8 +6,6 @@ import ca.jrvs.apps.trading.model.domain.Quote;
 import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class QuoteService {
-
-  private static final Logger logger = LoggerFactory.getLogger(QuoteService.class);
 
   private final MarketDataDao marketDataDao;
   private final QuoteRepository quoteRepository;
@@ -34,7 +30,7 @@ public class QuoteService {
    */
   public IexQuote findIexQuoteByTicker(String ticker) {
     return marketDataDao.findById(ticker)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid ticker: " + ticker));
+        .orElseThrow(() -> new IllegalArgumentException("Ticker not found: " + ticker));
   }
 
   /**
