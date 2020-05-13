@@ -1,13 +1,15 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 
 @javax.persistence.Entity
-@Table
 public class Quote implements Entity<String> {
 
+  @NotBlank
   @Id
   private String ticker;
 
@@ -17,12 +19,14 @@ public class Quote implements Entity<String> {
   @Column(name = "bid_price")
   private Double bidPrice;
 
+  @Positive
   @Column(name = "bid_size")
   private Integer bidSize;
 
   @Column(name = "ask_price")
   private Double askPrice;
 
+  @Positive
   @Column(name = "ask_size")
   private Integer askSize;
 
@@ -66,6 +70,11 @@ public class Quote implements Entity<String> {
         bidSize.equals(quote.bidSize) &&
         askPrice.equals(quote.askPrice) &&
         askSize.equals(quote.askSize);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ticker, lastPrice, bidPrice, bidSize, askPrice, askSize);
   }
 
   @Override
