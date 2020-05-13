@@ -28,7 +28,7 @@ public abstract class BaseJdbcCrudDao<E extends Entity<ID>, ID>
   abstract Class<E> getEntityClass();
 
   private final BeanPropertyRowMapper<E> rowMapper = new BeanPropertyRowMapper<>(getEntityClass());
-  private final Logger logger = LoggerFactory.getLogger(BaseJdbcCrudDao.class);
+  private static final Logger logger = LoggerFactory.getLogger(BaseJdbcCrudDao.class);
 
   @Override
   public <S extends E> Iterable<S> saveAll(Iterable<S> entities) {
