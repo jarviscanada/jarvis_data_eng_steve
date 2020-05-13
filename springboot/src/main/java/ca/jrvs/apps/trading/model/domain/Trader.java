@@ -1,11 +1,13 @@
 package ca.jrvs.apps.trading.model.domain;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
@@ -37,12 +39,14 @@ public class Trader implements Entity<Integer> {
   @Column
   private String email;
 
+  @OneToMany(mappedBy = "trader")
+  private List<Account> accounts;
+
   public Trader() {
   }
 
   public Trader(@NotBlank String firstName, @NotBlank String lastName,
       @Past LocalDate dob, @NotBlank String country, @Email String email) {
-    this.id = 0;
     this.firstName = firstName;
     this.lastName = lastName;
     this.dob = dob;
