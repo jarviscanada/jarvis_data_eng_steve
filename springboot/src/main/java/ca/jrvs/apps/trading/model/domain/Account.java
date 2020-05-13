@@ -2,13 +2,14 @@ package ca.jrvs.apps.trading.model.domain;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @javax.persistence.Entity
 public class Account implements Entity<Integer> {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Column(name = "trader_id")

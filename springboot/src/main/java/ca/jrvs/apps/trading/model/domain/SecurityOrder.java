@@ -2,13 +2,14 @@ package ca.jrvs.apps.trading.model.domain;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @javax.persistence.Entity(name = "security_order")
 public class SecurityOrder implements Entity<Integer> {
 
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Column(name = "account_id")
