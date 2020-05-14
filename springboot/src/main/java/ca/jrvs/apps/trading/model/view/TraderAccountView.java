@@ -2,18 +2,22 @@ package ca.jrvs.apps.trading.model.view;
 
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Trader;
-import javax.validation.Valid;
 
 public class TraderAccountView {
 
   private Trader trader;
 
-  public TraderAccountView(@Valid Trader trader, @Valid Account account) {
+  private Account account;
+
+  public TraderAccountView(Trader trader, Account account) {
     this.trader = trader;
     this.account = account;
   }
 
-  private Account account;
+  @Override
+  public String toString() {
+    return "TraderAccountView{" + trader + ", " + account + '}';
+  }
 
   public Trader getTrader() {
     return trader;
