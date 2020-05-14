@@ -15,8 +15,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
@@ -35,8 +33,6 @@ public class QuoteServiceIntTest {
 
   private static Quote savedQuote1;
   private static Quote savedQuote2;
-
-  private final Logger logger = LoggerFactory.getLogger(QuoteServiceIntTest.class);
 
   @Before
   public void setUp() {
@@ -61,7 +57,7 @@ public class QuoteServiceIntTest {
     service.updateMarketData();
     List<Quote> quotes = service.findAllQuotes();
     assertEquals(2, quotes.size());
-    quotes.forEach(q -> logger.info(q.toString()));
+    quotes.forEach(System.out::println);
   }
 
   @Test

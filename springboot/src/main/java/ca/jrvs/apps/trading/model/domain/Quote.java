@@ -6,13 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 @javax.persistence.Entity
 public class Quote implements Entity<String> {
 
-  @NotBlank
   @Id
+  @NotBlank
   private String ticker;
 
   @Column(name = "last_price")
@@ -21,15 +21,15 @@ public class Quote implements Entity<String> {
   @Column(name = "bid_price")
   private Double bidPrice;
 
-  @Positive
   @Column(name = "bid_size")
+  @PositiveOrZero
   private Integer bidSize;
 
   @Column(name = "ask_price")
   private Double askPrice;
 
-  @Positive
   @Column(name = "ask_size")
+  @PositiveOrZero
   private Integer askSize;
 
   @OneToMany(mappedBy = "quote")

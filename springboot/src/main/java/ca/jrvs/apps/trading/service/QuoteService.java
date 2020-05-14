@@ -6,12 +6,17 @@ import ca.jrvs.apps.trading.model.domain.Quote;
 import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Transactional
 @Service
+@Validated
 public class QuoteService {
 
   private final MarketDataDao marketDataDao;
@@ -28,7 +33,7 @@ public class QuoteService {
    *
    * @throws IllegalArgumentException if input ticker is invalid
    */
-  public IexQuote findIexQuoteByTicker(String ticker) {
+  public IexQuote findIexQuoteByTicker(@NotBlank String ticker) {
     return marketDataDao.findById(ticker)
         .orElseThrow(() -> new IllegalArgumentException("Ticker not found: " + ticker));
   }
@@ -70,7 +75,7 @@ public class QuoteService {
    * @param tickers a list of tickers/symbols
    * @throws IllegalArgumentException if ticker could not be found from IEX
    */
-  public List<Quote> saveQuotes(List<String> tickers) {
+  public List<Quote> saveQuotes(@Size(min = 1) List<String> tickers) {
     return tickers.stream()
         .map(this::saveQuote)
         .collect(Collectors.toList());
@@ -81,7 +86,7 @@ public class QuoteService {
    *
    * @throws IllegalArgumentException if ticker could not be found from IEX
    */
-  public Quote saveQuote(String ticker) {
+  public Quote saveQuote(@NotBlank String ticker) {
     IexQuote iexQuote = findIexQuoteByTicker(ticker);
     Quote dbQuote = buildQuoteFromIexQuote(iexQuote);
     quoteRepository.save(dbQuote);
@@ -91,7 +96,7 @@ public class QuoteService {
   /**
    * Update a given quote to quote table without validation
    */
-  public Quote saveQuote(Quote quote) {
+  public Quote saveQuote(@Valid Quote quote) {
     return quoteRepository.save(quote);
   }
 
