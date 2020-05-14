@@ -1,8 +1,10 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
@@ -29,6 +31,9 @@ public class Quote implements Entity<String> {
   @Positive
   @Column(name = "ask_size")
   private Integer askSize;
+
+  @OneToMany(mappedBy = "quote")
+  private List<SecurityOrder> orderList;
 
   public Quote() {
   }

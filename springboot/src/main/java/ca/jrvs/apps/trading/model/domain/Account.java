@@ -1,12 +1,15 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @javax.persistence.Entity
 public class Account implements Entity<Integer> {
@@ -15,18 +18,22 @@ public class Account implements Entity<Integer> {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
+  @NotNull
   @ManyToOne
   private Trader trader;
 
+  @NotNull
   @Column
-  private Double amount;
+  private Double amount = 0d;
+
+  @OneToMany(mappedBy = "account")
+  List<SecurityOrder> orderList;
 
   public Account() {
   }
 
-  public Account(@Valid Trader trader, Double amount) {
+  public Account(@Valid Trader trader) {
     this.trader = trader;
-    this.amount = amount;
   }
 
   @Override
@@ -86,4 +93,5 @@ public class Account implements Entity<Integer> {
   public void setAmount(Double amount) {
     this.amount = amount;
   }
+
 }

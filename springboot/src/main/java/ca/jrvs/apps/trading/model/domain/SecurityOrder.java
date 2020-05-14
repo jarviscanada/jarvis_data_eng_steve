@@ -1,34 +1,98 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
-@javax.persistence.Entity(name = "security_order")
+@javax.persistence.Entity
+@Table(name = "security_order")
 public class SecurityOrder implements Entity<Integer> {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "account_id")
-  private Integer accountId;
-
+  @NotNull
   @Column
   private String status;
 
-  @Column
-  private String ticker;
-
+  @NotNull
   @Column
   private Integer size;
 
+  @NotNull
   @Column
   private Double price;
 
+  @NotNull
   @Column
   private String notes;
+
+  @NotNull
+  @ManyToOne
+  @JoinColumn(name = "ticker")
+  private Quote quote;
+
+  @NotNull
+  @ManyToOne
+  private Account account;
+
+  public SecurityOrder() {
+  }
+
+  public SecurityOrder(
+      @NotNull String status, @NotNull Integer size, @NotNull Double price,
+      @NotNull String notes, @Valid Quote quote, @Valid Account account) {
+    this.status = status;
+    this.size = size;
+    this.price = price;
+    this.notes = notes;
+    this.quote = quote;
+    this.account = account;
+  }
+
+  @Override
+  public String toString() {
+    return "SecurityOrder{" +
+        "id=" + id +
+        ", status='" + status + '\'' +
+        ", size=" + size +
+        ", price=" + price +
+        ", notes='" + notes + '\'' +
+        ", ticker=" + getTicker() +
+        ", accountId=" + getAccountId() +
+        '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    SecurityOrder that = (SecurityOrder) o;
+    return id.equals(that.id) &&
+        status.equals(that.status) &&
+        size.equals(that.size) &&
+        price.equals(that.price) &&
+        notes.equals(that.notes) &&
+        quote.equals(that.quote) &&
+        account.equals(that.account);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, status, size, price, notes, quote.getId(), account.getId());
+  }
 
   @Override
   public Integer getId() {
@@ -41,11 +105,7 @@ public class SecurityOrder implements Entity<Integer> {
   }
 
   public Integer getAccountId() {
-    return accountId;
-  }
-
-  public void setAccountId(Integer accountId) {
-    this.accountId = accountId;
+    return account.getId();
   }
 
   public String getStatus() {
@@ -57,11 +117,7 @@ public class SecurityOrder implements Entity<Integer> {
   }
 
   public String getTicker() {
-    return ticker;
-  }
-
-  public void setTicker(String ticker) {
-    this.ticker = ticker;
+    return quote.getTicker();
   }
 
   public Integer getSize() {
