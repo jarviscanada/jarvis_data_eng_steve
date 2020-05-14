@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Trader;
 import java.util.List;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class AccountRepositoryTest extends BaseRepositoryTest<AccountRepository,
     super.setUp();
   }
 
+  @After
+  @Override
+  public void tearDown() {
+    super.tearDown();
+    traderRepository.deleteAll();
+  }
+
   @Override
   Object modifyOneField(Account account) {
     Double newAmount = Double.NaN;
@@ -42,12 +50,14 @@ public class AccountRepositoryTest extends BaseRepositoryTest<AccountRepository,
 
   @Override
   Account getTestEntity1() {
-    return new Account(savedTrader1, 0d);
+    return new Account(savedTrader1);
   }
 
   @Override
   Account getTestEntity2() {
-    return new Account(savedTrader2, 1e+5d);
+    Account account = new Account(savedTrader2);
+    account.setAmount(1e+5d);
+    return account;
   }
 
   @Override
