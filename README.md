@@ -7,49 +7,32 @@
 > - For your reference, the original resume template file is in the Github repo [here](https://github.com/jarviscanada/jarvis_resume_builder/blob/master/resume_template.md)
 > - you will need to update the project description before the MCR.
 
-# John Smith . Jarvis Consulting
+# Steven Liu . Jarvis Consulting
 
->Use this section to introduce yourself, your academic and professional background, what excites you about the data engineering industry and some of your hobbies. 100-150 words
-Donec fermentum, lectus tempor lobortis egestas, dolor dolor rhoncus justo, id pharetra odio ligula quis odio. Morbi blandit id quam eget porttitor. Integer at ullamcorper dolor, at egestas turpis. Fusce ultricies justo tellus, a congue augue aliquet sit amet. Quisque ultrices dolor eu turpis malesuada interdum. Suspendisse in nisl et massa laoreet sodales. Nulla quis lectus sit amet velit finibus feugiat eget nec quam. Praesent eget nibh et diam mollis venenatis. Mauris mi eros, varius in elit ut, ornare commodo magna. Nullam lacinia sapien pulvinar cursus tincidunt. Nam neque magna, accumsan a mi vel, tempor tristique nisl. Maecenas accumsan dignissim.
+Problem solver, culture explorer, lifelong learner. I'm a Jarvis data engineer associate graduated from the University of Saskatchewan with an Honors B.Sc. degree in Computer Science and Statistics. The blend of academic training has given me the knowledge of both solid coding and analytical background. I'm ready to kickstart my career in data engineering, which includes all the exciting things I am passionate about. I look forward to opportunities to utilize and develop my skills from Jarvis' clients in Toronto.
 
 ## Skills
 
->Group your skills by level. Your skills can be anything software related (e.g. language, frameworks, methodologies, software, etc.). 
+**Proficient:** Java (Spring, JPA/Hibernate), C++, R, Bash, SQL, Agile/Scrum, Statistics
 
->**Proficient**: Keep the default skills. Add skills that you have learned from Jarvis projects and you are confident to work on in the future. You can also include the skills you learned outside Jarvis. You should have 8-12 skills and must not exceed one line in PDF version.
+**Competent:** Python, Node.js, Docker, Cloud Computing, Machine learning (Scikit-learn, Keras) 
 
-**Proficient:** Java, Bash, SQL, Agile/Scrum
-
->**Competent**:  Skills you learned from Jarvis projects but you are not confident to put into the proficient section. You can also include the skills you learned outside Jarvis. You should have no more than 12 skills and must not exceed one line in PDF version.
-
-**Competent:** 
-
->**Familiar**: Skills you have learned ourside Jarvis and you want to work on in the future. You should have no more than 12 skills and must not exceed one line in PDF version.
-
-**Familiar:** 
+**Familiar:** Angular, Kubernetes, Spark, Scala, DevOps (Jenkins, Travis CI) 
 
 ## Development Projects
 
->Update Github link. Please keep this markdown syntax as some HR system may strip hyperlinks.
+Project source code: [https://github.com/jarviscanada/jarvis_data_eng_steve](https://github.com/jarviscanada/jarvis_data_eng_steve)
 
-Project source code: [https://github.com/jarviscanada/jarvis_data_eng_demo](https://github.com/jarviscanada/jarvis_data_eng_demo)
-
->The project description allows hiring managers to understand your project and technologies you used(e.g. programing langauge, libraries, algorithms, hardwards, tools, etc.). The project description must start with an action verb (https://bit.ly/35Um9Y7)
-
->Use *Not started* or *in-progress* as a placeholder
-
-- **[Cluster Monitor](./linux_sql)**: Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.(40 words)
-- **[Core Java Apps](./core_java)**: Curabitur laoreet tristique leo, eget suscipit nisi. Sed in sodales ex. Maecenas vitae tincidunt dui, et eleifend quam. Interdum et malesuada fames ac ante ipsum primis in faucibus. Duis efficitur.(30 words)
-- **[SpringBoot App](./springboot)**: Nam in ultrices elit, vitae imperdiet purus. Nulla facilisi. Duis eget dui in quam maximus efficitur. Sed commodo rhoncus lacus id commodo. Quisque sagittis in.
+- **[Cluster Monitor](./linux_sql)**: Followed the software development practices including Agile and Gitflow, I developed an internal tool for cluster administration team to automate database server provision and server usage monitoring. I also wrote clear documentation on architecture design and scripts usage.
+- **[Core Java Apps](./core_java)**: Developed three Java applications: Grep App, JDBC Demo, and Twitter CLI App. Maven is used as the project configuration & building tool and JUnit4 and Mockito for unit & integration testing. I got familiar with many key concepts in web development such as HTTP, JSON, MVC, and Spring framework in this project.
+- **[SpringBoot App](./springboot)**: **In-progress** Developing a trading system with Spring MVC and Hibernate.
 - **[Cloud & DevOps](./cloud_devops)**: Not started
 - **[Hadoop](./hadoop)**: Not started
 - **[Spark/Scala](./spark)**:  Not started
 
 ## Professional Experiences
 
->The job description allows hiring managers to understand your job and technologies you used(e.g. programing langauge, libraries, algorithms, hardwards, tools, etc.). The description must be more than 25 words. If your experience is not software related, please focus on soft skills and achievements (e.g. team collaboration, problem solving, improvements, communication). Write your Jarvis role as a professional expereince rather than training.
-
-**Software Developer,  Jarvis, Toronto (2020-Present):** Donec mattis sed justo et sagittis. Vestibulum lacinia nulla ipsum. Curabitur imperdiet nibh vitae leo lacinia laoreet. Nullam accumsan, lectus ut maximus ultricies, augue justo egestas mi, vel bibendum felis. (30 words)
+**Data Engineer Associate, Jarvis, Toronto (2020-Present):** I'm working on projects using core big data technologies including Cloud, DevOps, Java, Hadoop and Spark. As a team member, I'm responsible for performing the duties of Scrum master in Agile-based team projects to clear obstacles, ensure team cohesion, address collaborative dynamics, and facilitate goal management.
 
 **Tutor, XYZ, Toronto (2019-Present):** Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.(40 words)
 
