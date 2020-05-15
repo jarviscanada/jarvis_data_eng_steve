@@ -1,6 +1,6 @@
 # Steven Liu . Jarvis Consulting
 
-Problem solver, culture explorer, lifelong learner. I'm a Jarvis data engineer associate graduated from the University of Saskatchewan with an Honors B.Sc. degree in Computer Science and Statistics. The blend of academic training has given me the knowledge of both solid coding and analytical background. I'm ready to kickstart my career in data engineering, which includes all the exciting things I am passionate about. I look forward to opportunities to utilize and develop my skills from Jarvis' clients in Toronto.
+Problem solver, culture explorer, lifelong learner. Before joining Jarvis, I graduated from the University of Saskatchewan with an Honors B.Sc. degree in Computer Science and Statistics. The blend of academic training has given me both solid coding and analytical skills. I found my interest in data engineering in my final year of university, which is a discipline that includes all the exciting things I am passionate about. I look forward to opportunities to utilize and develop my skills from Jarvis' clients in Toronto.
 
 ## Skills
 
