@@ -6,6 +6,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan(basePackages = {"ca.jrvs.apps.trading.*"})
 @EnableJpaRepositories(basePackages = {"ca.jrvs.apps.trading.repo"})
 @EnableAutoConfiguration
+
 public class AppConfig {
 
   private final Logger logger = LoggerFactory.getLogger(AppConfig.class);
