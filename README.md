@@ -1,12 +1,3 @@
-> Resume instructions:
-> - By default, your resume will be distributed via github. However, you will also need to generate a PDF version of it. Please follow the PDF styling requirements below.
-> - Run resume_pdf_generator.sh (requires docker) to generate a PDF version
-> - Please remove all quotes in this README file (e.g. any lines that start with `>`) once you update all sections.
-> - Note: `resume_pdf_generator.sh` will remove all markdown quotes automatically, but you should still remove quotes from the markdown file
-> - Resume instruction Notion page https://bit.ly/35Um9Y7
-> - For your reference, the original resume template file is in the Github repo [here](https://github.com/jarviscanada/jarvis_resume_builder/blob/master/resume_template.md)
-> - you will need to update the project description before the MCR.
-
 # Steven Liu . Jarvis Consulting
 
 Problem solver, culture explorer, lifelong learner. I'm a Jarvis data engineer associate graduated from the University of Saskatchewan with an Honors B.Sc. degree in Computer Science and Statistics. The blend of academic training has given me the knowledge of both solid coding and analytical background. I'm ready to kickstart my career in data engineering, which includes all the exciting things I am passionate about. I look forward to opportunities to utilize and develop my skills from Jarvis' clients in Toronto.
@@ -34,25 +25,22 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_steve](htt
 
 **Data Engineer Associate, Jarvis, Toronto (2020-Present):** I'm working on projects using core big data technologies including Cloud, DevOps, Java, Hadoop and Spark. As a team member, I'm responsible for performing the duties of Scrum master in Agile-based team projects to clear obstacles, ensure team cohesion, address collaborative dynamics, and facilitate goal management.
 
-**Tutor, XYZ, Toronto (2019-Present):** Suspendisse a tincidunt odio. Suspendisse posuere luctus aliquet. Quisque magna tellus, tempor vitae arcu sed, volutpat scelerisque lacus. Aliquam varius pulvinar dapibus. Ut a tincidunt sem. Aenean sollicitudin fringilla erat ut imperdiet. Phasellus fermentum, enim vitae laoreet elementum, eros nisl hendrerit lorem.(40 words)
+**Software Developer, University of Saskatchewan, Saskatoon (2019-2020):** Developed R package [HTLR](https://github.com/longhaiSK/HTLR) for high-dimensional data analysis. In particular, I refactored the legacy C modules with C++ and OOP design. The core Markov chain Monte Carlo algorithm has been optimized to get improved by 30% in speed. I also wrote the package documentation and the user manual.
+
+**Data Scientist, Social Sciences Research Laboratories (SSRL), Saskatoon (2018-2019):** Collected data from Twitter REST API and performed data cleaning transformation; Performed data mining tasks including bot detection, sentiment analysis, emotion extraction, topic modelling, and social network analysis on 100,000+ tweets and 50,000 users; Produced analysis summary ([work samples](https://rpubs.com/xil865/)), reported to the project director.
 
 ## Education & Academic Projects
 
-**XYZ University (2018-2020)**, Master of Engineering, Computer Engineering
+**University of Saskatchewan (2014-2019)**, *Bachelor of Science (Honours), Computer Science & Statistics*
 
-> 2-4 highlighted projects. Prioritize programming related project and describe the project and technologies. For non-technical project, focus on soft skills (e.g. reward, team collaboration, problem solving, improvements, communication). The description must be 30-40 words. 
+- **Research on Algorithms for High-dimensional Data Analysis** Performed literature review on algorithms for high-dimensional classification and feature selection; Conducted large-scale simulation studies to access the performance of several state-of-the-art packages; Composed technical report as undergraduate honours thesis.
 
-- **Web Application:** Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+- **[Image Processing Project](https://github.com/syumet/imCollec784)** Implemented a variety of algorithms for image manipulation, segmentation, and classification with Scikit-image, Scikit-learn, and Keras; Created documents combining the code and graphical results with Jupyter Notebook.
 
-- **Robot Software:** Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-
-**ABC University (2014-2018)**, Bachelor of Applied Science, Electrical & Computer Engineering
-
-- **Snake Game:** Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+- **Sociolinguistics Project** Analyzed the interview data using Excel (t-test, rank correlation, anova) to study the factors influencing heritage language performance of Chinese immigrant children in Saskatchewan; Provided model suggestions and result interpretation to researchers without quantitative background.
 
 ## Certificates & Awards & Activities
 
-> Remove this section if you don't have any. Description is optional
-
-- Dean's List (2015, 2016): Ut enim ad minim veniam
-- Volunteer, ABC Food bank (2017): Ut enim ad minim veniam
+- Amazon Web Services (AWS) Certified Cloud Practitioner - 2020
+- Academic exchange to Hong Kong Baptist University (HKBU) - 2017
+- Japanese-Language Proficiency Test N2-Passed - 2017
