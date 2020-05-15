@@ -32,7 +32,7 @@ public class Account implements Entity<Integer> {
   public Account() {
   }
 
-  public Account(@Valid Trader trader) {
+  public Account(Trader trader) {
     this.trader = trader;
   }
 

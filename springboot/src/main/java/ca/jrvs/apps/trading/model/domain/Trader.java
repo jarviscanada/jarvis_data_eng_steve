@@ -45,8 +45,7 @@ public class Trader implements Entity<Integer> {
   public Trader() {
   }
 
-  public Trader(@NotBlank String firstName, @NotBlank String lastName,
-      @Past LocalDate dob, @NotBlank String country, @Email String email) {
+  public Trader(String firstName, String lastName, LocalDate dob, String country, String email) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dob = dob;

@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @javax.persistence.Entity
@@ -47,9 +46,8 @@ public class SecurityOrder implements Entity<Integer> {
   public SecurityOrder() {
   }
 
-  public SecurityOrder(
-      @NotNull String status, @NotNull Integer size, @NotNull Double price,
-      @NotNull String notes, @Valid Quote quote, @Valid Account account) {
+  public SecurityOrder(String status, Integer size, Double price, String notes, Quote quote,
+      Account account) {
     this.status = status;
     this.size = size;
     this.price = price;
