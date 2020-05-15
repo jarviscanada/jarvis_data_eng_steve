@@ -1,30 +1,31 @@
 package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
-import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Transactional
 @Service
+@Validated
 public class QuoteService {
 
-  private static final Logger logger = LoggerFactory.getLogger(QuoteService.class);
-
   private final MarketDataDao marketDataDao;
-  private final QuoteDao quoteDao;
+  private final QuoteRepository quoteRepository;
 
   @Autowired
-  public QuoteService(MarketDataDao marketDataDao, QuoteDao quoteDao) {
+  public QuoteService(MarketDataDao marketDataDao, QuoteRepository quoteRepository) {
     this.marketDataDao = marketDataDao;
-    this.quoteDao = quoteDao;
+    this.quoteRepository = quoteRepository;
   }
 
   /**
@@ -32,9 +33,9 @@ public class QuoteService {
    *
    * @throws IllegalArgumentException if input ticker is invalid
    */
-  public IexQuote findIexQuoteByTicker(String ticker) {
+  public IexQuote findIexQuoteByTicker(@NotBlank String ticker) {
     return marketDataDao.findById(ticker)
-        .orElseThrow(() -> new IllegalArgumentException("Invalid ticker: " + ticker));
+        .orElseThrow(() -> new IllegalArgumentException("Ticker not found: " + ticker));
   }
 
   /**
@@ -43,14 +44,14 @@ public class QuoteService {
    * @return saved quotes
    */
   public List<Quote> updateMarketData() {
-    List<String> tickers = quoteDao.findAll()
+    List<String> tickers = quoteRepository.findAll()
         .stream()
         .map(Quote::getId)
         .collect(Collectors.toList());
     return marketDataDao.findAllById(tickers)
         .stream()
         .map(QuoteService::buildQuoteFromIexQuote)
-        .map(quoteDao::save)
+        .map(quoteRepository::save)
         .collect(Collectors.toList());
   }
 
@@ -74,7 +75,7 @@ public class QuoteService {
    * @param tickers a list of tickers/symbols
    * @throws IllegalArgumentException if ticker could not be found from IEX
    */
-  public List<Quote> saveQuotes(List<String> tickers) {
+  public List<Quote> saveQuotes(@Size(min = 1) List<String> tickers) {
     return tickers.stream()
         .map(this::saveQuote)
         .collect(Collectors.toList());
@@ -85,25 +86,25 @@ public class QuoteService {
    *
    * @throws IllegalArgumentException if ticker could not be found from IEX
    */
-  public Quote saveQuote(String ticker) {
+  public Quote saveQuote(@NotBlank String ticker) {
     IexQuote iexQuote = findIexQuoteByTicker(ticker);
     Quote dbQuote = buildQuoteFromIexQuote(iexQuote);
-    quoteDao.save(dbQuote);
+    quoteRepository.save(dbQuote);
     return dbQuote;
   }
 
   /**
    * Update a given quote to quote table without validation
    */
-  public Quote saveQuote(Quote quote) {
-    return quoteDao.save(quote);
+  public Quote saveQuote(@Valid Quote quote) {
+    return quoteRepository.save(quote);
   }
 
   /**
    * Find all quotes from the quote table
    */
   public List<Quote> findAllQuotes() {
-    return quoteDao.findAll();
+    return quoteRepository.findAll();
   }
 
 }

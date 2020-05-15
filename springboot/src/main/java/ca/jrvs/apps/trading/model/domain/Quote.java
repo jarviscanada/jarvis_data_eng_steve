@@ -1,13 +1,39 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import java.util.List;
+import java.util.Objects;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
+
+@javax.persistence.Entity
 public class Quote implements Entity<String> {
 
+  @Id
+  @NotBlank
   private String ticker;
+
+  @Column(name = "last_price")
   private Double lastPrice;
+
+  @Column(name = "bid_price")
   private Double bidPrice;
+
+  @Column(name = "bid_size")
+  @PositiveOrZero
   private Integer bidSize;
+
+  @Column(name = "ask_price")
   private Double askPrice;
+
+  @Column(name = "ask_size")
+  @PositiveOrZero
   private Integer askSize;
+
+  @OneToMany(mappedBy = "quote")
+  private List<SecurityOrder> orderList;
 
   public Quote() {
   }
@@ -49,6 +75,11 @@ public class Quote implements Entity<String> {
         bidSize.equals(quote.bidSize) &&
         askPrice.equals(quote.askPrice) &&
         askSize.equals(quote.askSize);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(ticker, lastPrice, bidPrice, bidSize, askPrice, askSize);
   }
 
   @Override

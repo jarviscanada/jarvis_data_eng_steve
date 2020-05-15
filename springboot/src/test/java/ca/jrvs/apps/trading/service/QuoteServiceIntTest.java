@@ -1,6 +1,6 @@
 package ca.jrvs.apps.trading.service;
 
-import static ca.jrvs.apps.trading.TestUtil.NOT_ID;
+import static ca.jrvs.apps.trading.TestUtil.NOT_TICKER;
 import static ca.jrvs.apps.trading.TestUtil.getQuoteRbc;
 import static ca.jrvs.apps.trading.TestUtil.getQuoteShop;
 import static ca.jrvs.apps.trading.TestUtil.getSomeTickers;
@@ -8,15 +8,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.trading.TestConfig;
-import ca.jrvs.apps.trading.dao.QuoteDao;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.HashSet;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
@@ -31,26 +29,24 @@ public class QuoteServiceIntTest {
   private QuoteService service;
 
   @Autowired
-  private QuoteDao quoteDao;
+  private QuoteRepository repository;
 
   private static Quote savedQuote1;
   private static Quote savedQuote2;
 
-  private final Logger logger = LoggerFactory.getLogger(QuoteServiceIntTest.class);
-
   @Before
   public void setUp() {
-    quoteDao.deleteAll();
+    repository.deleteAll();
     savedQuote1 = getQuoteShop();
-    quoteDao.save(savedQuote1);
+    repository.save(savedQuote1);
     savedQuote2 = getQuoteRbc();
-    quoteDao.save(savedQuote2);
+    repository.save(savedQuote2);
   }
 
   @Test
   public void findIexQuoteByTicker() {
     try {
-      service.findIexQuoteByTicker(NOT_ID);
+      service.findIexQuoteByTicker(NOT_TICKER);
       fail();
     } catch (IllegalArgumentException ignored) {
     }
@@ -61,7 +57,7 @@ public class QuoteServiceIntTest {
     service.updateMarketData();
     List<Quote> quotes = service.findAllQuotes();
     assertEquals(2, quotes.size());
-    quotes.forEach(q -> logger.info(q.toString()));
+    quotes.forEach(System.out::println);
   }
 
   @Test
@@ -73,7 +69,7 @@ public class QuoteServiceIntTest {
     HashSet<String> set = new HashSet<>(tickers);
     set.add(savedQuote1.getTicker());
     set.add(savedQuote2.getTicker());
-    assertEquals(set.size(), quoteDao.count());
+    assertEquals(set.size(), repository.count());
   }
 
 }
