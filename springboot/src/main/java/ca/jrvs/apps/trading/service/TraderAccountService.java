@@ -45,7 +45,8 @@ public class TraderAccountService {
   }
 
   /**
-   * A trader can be deleted iff it has no open positions and zero cash balance
+   * Delete all securityOrders, accounts, and trader associated with given traderId. A trader can be
+   * deleted iff it's accounts have no open positions and zero cash balance
    *
    * @throws IllegalArgumentException if trader doesn't exist or unable to delete
    */
@@ -53,24 +54,40 @@ public class TraderAccountService {
     final Trader toDelete = traderRepository.findById(traderId).orElseThrow(
         () -> new IllegalArgumentException("Trader ID not found: " + traderId)
     );
-    List<Account> accountsToDelete = accountRepository.findByTrader(toDelete);
-    accountsToDelete.forEach(a -> {
-      // check balance
-      if (a.getAmount() != 0) {
-        throw new IllegalArgumentException(
-            "Trader " + traderId + " has non-zero balance: " + a.getAmount());
-      }
-      // check open positions
-      List<Position> positions = positionRepository.findByAccountId(a.getId());
-      positions.forEach(p -> {
-        if (p.getPosition() != 0) {
-          throw new IllegalArgumentException(
-              "Trader " + traderId + " has open position: " + p);
-        }
-      });
-    });
-    accountRepository.deleteAll(accountsToDelete);
+    accountRepository.findByTrader(toDelete).forEach(this::deleteAccount);
     traderRepository.delete(toDelete);
+  }
+
+  /**
+   * Delete all securityOrder and the account associated with given accountId. An account can be
+   * deleted iff it has no open positions and zero cash balance
+   *
+   * @throws IllegalArgumentException if account doesn't exist or unable to delete
+   */
+  public void deleteAccountById(@NotNull Integer accountId) {
+    Account toDelete = accountRepository.findById(accountId).orElseThrow(
+        () -> new IllegalArgumentException("Account ID not found: " + accountId)
+    );
+    deleteAccount(toDelete);
+  }
+
+  private void deleteAccount(Account account) {
+    // check balance
+    if (account.getAmount() != 0) {
+      throw new IllegalArgumentException(
+          account + " has non-zero balance.");
+    }
+    // check open positions
+    List<Position> positions = positionRepository.findByAccountId(account.getId());
+    positions.forEach(p -> {
+      if (p.getPosition() != 0) {
+        throw new IllegalArgumentException(
+            p + " has open position.");
+      }
+    });
+    // if all good
+    orderRepository.deleteByAccount(account);
+    accountRepository.delete(account);
   }
 
   /**
