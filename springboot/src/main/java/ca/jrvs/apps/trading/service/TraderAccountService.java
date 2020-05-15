@@ -37,11 +37,24 @@ public class TraderAccountService {
   /**
    * Create a new trader and initialize a new account with zero amount
    */
-  public TraderAccountView createTraderAccount(@Valid Trader trader) {
-    final Trader createdTrader = traderRepository.save(trader);
-    Account traderAccount = new Account(createdTrader);
-    traderAccount = accountRepository.save(traderAccount);
-    return new TraderAccountView(createdTrader, traderAccount);
+  public TraderAccountView createTrader(@Valid Trader trader) {
+    Trader createdTrader = traderRepository.save(trader);
+    return createAccountForTrader(createdTrader);
+  }
+
+  /**
+   * Create a new trader for trader specified by traderId
+   *
+   * @throws IllegalArgumentException if unable to find trader
+   */
+  public TraderAccountView createAccountForTrader(@NotNull Integer traderId) {
+    Trader trader = findTraderById(traderId);
+    return createAccountForTrader(trader);
+  }
+
+  private TraderAccountView createAccountForTrader(Trader trader) {
+    Account account = accountRepository.save(new Account(trader));
+    return new TraderAccountView(trader, account);
   }
 
   /**
@@ -51,9 +64,7 @@ public class TraderAccountService {
    * @throws IllegalArgumentException if trader doesn't exist or unable to delete
    */
   public void deleteTraderById(@NotNull Integer traderId) {
-    final Trader toDelete = traderRepository.findById(traderId).orElseThrow(
-        () -> new IllegalArgumentException("Trader ID not found: " + traderId)
-    );
+    Trader toDelete = findTraderById(traderId);
     accountRepository.findByTrader(toDelete).forEach(this::deleteAccount);
     traderRepository.delete(toDelete);
   }
@@ -65,9 +76,7 @@ public class TraderAccountService {
    * @throws IllegalArgumentException if account doesn't exist or unable to delete
    */
   public void deleteAccountById(@NotNull Integer accountId) {
-    Account toDelete = accountRepository.findById(accountId).orElseThrow(
-        () -> new IllegalArgumentException("Account ID not found: " + accountId)
-    );
+    Account toDelete = findAccountById(accountId);
     deleteAccount(toDelete);
   }
 
@@ -121,9 +130,15 @@ public class TraderAccountService {
     return account;
   }
 
-  private Account findAccountById(@NotNull Integer accountId) {
+  private Account findAccountById(Integer accountId) {
     return accountRepository.findById(accountId).orElseThrow(
         () -> new IllegalArgumentException("Account ID not found: " + accountId)
+    );
+  }
+
+  private Trader findTraderById(Integer traderId) {
+    return traderRepository.findById(traderId).orElseThrow(
+        () -> new IllegalArgumentException("Trader ID not found: " + traderId)
     );
   }
 

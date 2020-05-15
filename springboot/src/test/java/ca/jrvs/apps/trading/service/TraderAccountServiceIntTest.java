@@ -40,20 +40,20 @@ public class TraderAccountServiceIntTest {
   @Before
   public void createTraderAccount() {
     Trader trader = getTraderDavid();
-    savedView1 = service.createTraderAccount(trader);
+    savedView1 = service.createTrader(trader);
     assertEquals(1, traderRepository.count());
     assertEquals(1, accountRepository.count());
     assertEquals(0, savedView1.getAccount().getAmount(), Double.MIN_VALUE);
 
     // David opened another account
-    savedView2 = service.createTraderAccount(trader);
+    savedView2 = service.createAccountForTrader(savedView1.getTrader().getId());
     assertEquals(1, traderRepository.count());
     assertEquals(2, accountRepository.count());
     assertEquals(0, savedView2.getAccount().getAmount(), Double.MIN_VALUE);
 
     trader.setEmail("not.email");
     try {
-      service.createTraderAccount(trader);
+      service.createTrader(trader);
       fail();
     } catch (Exception ignored) {
     }
@@ -98,21 +98,25 @@ public class TraderAccountServiceIntTest {
   }
 
   @After
-  public void deleteTraderById() {
+  public void delete() {
     Optional<Account> account = accountRepository.findById(savedView1.getAccount().getId());
     assertTrue(account.isPresent());
     Double amountLeft = account.get().getAmount();
     assertTrue(amountLeft > 0);
     try {
-      service.deleteTraderById(savedView1.getTrader().getId());
+      service.deleteAccountById(savedView1.getAccount().getId());
       fail();
     } catch (IllegalArgumentException ignored) {
     }
 
     service.withdraw(savedView1.getAccount().getId(), amountLeft);
-    service.deleteTraderById(savedView1.getTrader().getId());
+    service.deleteAccountById(savedView1.getAccount().getId());
+    assertEquals(1, accountRepository.count());
 
-    // nothing to delete
+    service.deleteTraderById(savedView2.getTrader().getId());
+    assertEquals(0, accountRepository.count());
+
+    // now nothing to delete
     try {
       service.deleteTraderById(savedView1.getTrader().getId());
       fail();
