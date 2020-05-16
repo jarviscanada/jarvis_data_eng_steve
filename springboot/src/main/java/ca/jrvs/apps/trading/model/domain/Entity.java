@@ -1,8 +1,11 @@
 package ca.jrvs.apps.trading.model.domain;
 
-public interface Entity<ID> {
+import java.io.Serializable;
+
+public interface Entity<ID> extends Serializable {
 
   ID getId();
 
   void setId(ID id);
+
 }
