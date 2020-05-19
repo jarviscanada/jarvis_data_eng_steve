@@ -83,7 +83,7 @@ public class IexQuote {
 
   /**
    * Refers to a human readable time/date of when latestPrice was last updated. The format will vary
-   * based on latestSource is inteded to be displayed to a user. Use latestUpdate for machine
+   * based on latestSource is intended to be displayed to a user. Use latestUpdate for machine
    * readable timestamp.
    *
    * @see IexQuote#latestSource
