@@ -1,9 +1,8 @@
 package ca.jrvs.apps.trading.controller;
 
-import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.model.dto.IexQuote;
 import ca.jrvs.apps.trading.service.QuoteService;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;

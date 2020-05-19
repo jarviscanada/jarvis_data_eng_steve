@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.trading.dao.config.MarketDataConfig;
-import ca.jrvs.apps.trading.model.domain.IexQuote;
+import ca.jrvs.apps.trading.model.dto.IexQuote;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
