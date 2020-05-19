@@ -10,7 +10,7 @@ public class MarketOrderDto {
   private Integer size;
 
   @NotNull
-  private Boolean isBuyOrder;
+  private Boolean buyOrder;
 
   @NotBlank
   private String ticker;
@@ -18,9 +18,12 @@ public class MarketOrderDto {
   @NotNull
   private Integer accountId;
 
-  public MarketOrderDto(Integer accountId, String ticker, Boolean isBuyOrder, Integer size) {
+  public MarketOrderDto() {
+  }
+
+  public MarketOrderDto(Integer accountId, String ticker, Boolean buyOrder, Integer size) {
     this.size = size;
-    this.isBuyOrder = isBuyOrder;
+    this.buyOrder = buyOrder;
     this.ticker = ticker;
     this.accountId = accountId;
   }
@@ -34,7 +37,15 @@ public class MarketOrderDto {
   }
 
   public Boolean isBuyOrder() {
-    return isBuyOrder;
+    return buyOrder;
+  }
+
+  public Boolean getBuyOrder() {
+    return buyOrder;
+  }
+
+  public void setBuyOrder(Boolean buyOrder) {
+    this.buyOrder = buyOrder;
   }
 
   public String getTicker() {
