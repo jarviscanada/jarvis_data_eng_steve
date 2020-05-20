@@ -12,29 +12,19 @@ import ca.jrvs.apps.trading.repo.SecurityOrderRepository;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-@Transactional
 @Service
 @Validated
-public class OrderService {
-
-  private final AccountRepository accountRepository;
-  private final SecurityOrderRepository orderRepository;
-  private final QuoteRepository quoteRepository;
-  private final PositionRepository positionRepository;
+public class OrderService extends BaseRepoService {
 
   @Autowired
-  public OrderService(
-      AccountRepository accountRepository,
-      SecurityOrderRepository orderRepository,
-      QuoteRepository quoteRepository,
-      PositionRepository positionRepository) {
-    this.accountRepository = accountRepository;
-    this.orderRepository = orderRepository;
-    this.quoteRepository = quoteRepository;
-    this.positionRepository = positionRepository;
+  public OrderService(AccountRepository account, SecurityOrderRepository order,
+      QuoteRepository quote, PositionRepository position) {
+    this.accountRepository = account;
+    this.orderRepository = order;
+    this.quoteRepository = quote;
+    this.positionRepository = position;
   }
 
   /**
@@ -44,11 +34,9 @@ public class OrderService {
    */
   public SecurityOrder executeMarketOrder(@Valid MarketOrderDto dto) {
     final SecurityOrder order = new SecurityOrder();
-    final Account account = accountRepository.findById(dto.getAccountId())
-        .orElseThrow(() -> new IllegalArgumentException("Account NOT exists"));
+    final Account account = findAccountById(dto.getAccountId());
     order.setAccount(account);
-    final Quote quote = quoteRepository.findById(dto.getTicker())
-        .orElseThrow(() -> new IllegalArgumentException("Quote Not exists"));
+    final Quote quote = findQuoteByTicker(dto.getTicker());
     order.setQuote(quote);
 
     if (dto.isBuyOrder()) {
@@ -90,10 +78,7 @@ public class OrderService {
    * Helper function that mutates account.amount, securityOrder.size, securityOrder.price
    */
   private void handleSellOrder(MarketOrderDto dto, SecurityOrder securityOrder, Account account) {
-    Position position = positionRepository.findById(securityOrder.getPositionId())
-        .orElseThrow(() -> new IllegalArgumentException(
-            "Position not found. Have you previously purchased this security?")
-        );
+    Position position = findPositionById(securityOrder.getPositionId());
     if (dto.getSize() > position.getPosition()) {
       throw new IllegalArgumentException(
           "Your ask size exceeded the amount of shares you hold: " + position.getPosition());
