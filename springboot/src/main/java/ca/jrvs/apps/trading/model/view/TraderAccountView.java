@@ -5,9 +5,9 @@ import ca.jrvs.apps.trading.model.domain.Trader;
 
 public class TraderAccountView {
 
-  private Trader trader;
+  private final Trader trader;
 
-  private Account account;
+  private final Account account;
 
   public TraderAccountView(Trader trader, Account account) {
     this.trader = trader;
@@ -23,15 +23,8 @@ public class TraderAccountView {
     return trader;
   }
 
-  public void setTrader(Trader trader) {
-    this.trader = trader;
-  }
-
   public Account getAccount() {
     return account;
   }
 
-  public void setAccount(Account account) {
-    this.account = account;
-  }
 }
