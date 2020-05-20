@@ -28,6 +28,12 @@ public class Position implements Entity<Integer> {
   @NotNull
   private Integer position;
 
+  public Position(Integer accountId, String ticker, Integer position) {
+    this.accountId = accountId;
+    this.ticker = ticker;
+    this.position = position;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

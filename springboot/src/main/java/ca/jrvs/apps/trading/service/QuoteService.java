@@ -1,8 +1,8 @@
 package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
-import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.model.dto.IexQuote;
 import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
