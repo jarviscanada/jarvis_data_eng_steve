@@ -42,7 +42,7 @@ public class MarketDataDaoIntTest {
     String ticker2 = "FB2";
     assertFalse(dao.existsById(ticker2));
     Optional<IexQuote> quote2 = dao.findById(ticker2);
-    assertTrue(quote2.isEmpty());
+    assertFalse(quote2.isPresent());
 
     try {
       dao.findById("?");
