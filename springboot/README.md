@@ -52,8 +52,11 @@ Jarvis Trading platform is an online stock trading simulation system that allows
 		# you should see two running docker containers
 		docker container ls
 		```
-- Try the trading-app with SwaggerUI, you can access it from [here](http://localhost:8080/swagger-ui.html/)
+- Try the trading-app with SwaggerUI, you can access it from [here](http://localhost:8080/swagger-ui.html#/)
 after successfully starting the application.
+
+<img src="../assets/swagger.png" alt="drawing"/>
+
 
 # Architecture
 - Draw a component diagram which contains controllers, services, DAOs, psql, IEX Cloud, WebServlet/Tomcat, HTTP client, and SpringBoot. 
