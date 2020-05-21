@@ -7,16 +7,53 @@
 * [Improvements](#Improvements)
 
 # Introduction
-- Briefly explain what does this project do (e.g. it an online stock trading simulation REST API which can blah..blah) and who can use this API (e.g. front-end developer, mobile developer, and traders can utilize this REST API)
-- Briefly talk about technologies used in this project (e.g. Its a MicroService which is implemented with SpringBoot. PSQL database. IEX market data)
+Jarvis Trading platform is an online stock trading simulation system that allows users (e.g. front-end developers, mobile developers, and traders) to access and play with real-time market data via REST API. The system is designed with microservice architecture, implemented with Java 8 and SpringBoot. [IEX Cloud](https://iexcloud.io/) is used as the data source, and the backend utilizes PostgreSQL database and JPA/Hibernate to persist market/user/transaction data.
 
 # Quick Start
-- Prequiresites: Docker, CentOS 7
-- Docker scritps with description
-	- build images
-  - create docker network
-  - start containers
-- Try trading-app with SwaggerUI (screenshot)
+- **Prequiresites:**
+	- Docker
+	- An IEX Cloud account (free tier available)
+- **Get started:**
+	1. Make sure Docker daemon is running.
+	2. Build the database image `trading-psql` and the application image `trading-app`:
+		``` sh
+		cd ./psql
+		docker build -t trading-psql .
+		docker image ls -f reference=trading-psql
+
+		cd ..
+		docker build -t trading-app .
+		docker image ls -f reference=trading-app
+		```
+	3. Create the docker network `trading-network`:
+		``` sh
+		docker network create trading-network
+		docker network ls
+		```
+  	4. Start the containers, your IEX credential is needed here: 
+		```sh
+		docker run --name trading-psql-dev \
+		-e POSTGRES_PASSWORD=password \
+		-e POSTGRES_DB=jrvstrading \
+		-e POSTGRES_USER=postgres \
+		--network trading-net \
+		-d -p 5432:5432 trading-psql
+
+		IEX_PUB_TOKEN="your_token"
+
+		docker run --name trading-app-dev \
+		-e "PSQL_URL=jdbc:postgresql://trading-psql-dev:5432/jrvstrading" \
+		-e "PSQL_USER=postgres" \
+		-e "PSQL_PASSWORD=password" \
+		-e "IEX_PUB_TOKEN=${IEX_PUB_TOKEN}" \
+		--network trading-net \
+		-p 5000:5000 -t trading-app
+
+		# you should see two running docker containers
+		docker container ls
+		```
+- Try the trading-app with SwaggerUI, you can access it from [here](http://localhost:8080/swagger-ui.html/)
+after successfully starting the application.
 
 # Architecture
 - Draw a component diagram which contains controllers, services, DAOs, psql, IEX Cloud, WebServlet/Tomcat, HTTP client, and SpringBoot. 
