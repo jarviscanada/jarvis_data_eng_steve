@@ -11,16 +11,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-@Transactional
 @Service
 @Validated
-public class QuoteService {
+public class QuoteService extends BaseRepoService {
 
   private final MarketDataDao marketDataDao;
-  private final QuoteRepository quoteRepository;
 
   @Autowired
   public QuoteService(MarketDataDao marketDataDao, QuoteRepository quoteRepository) {
