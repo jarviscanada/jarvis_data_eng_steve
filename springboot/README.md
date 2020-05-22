@@ -59,33 +59,54 @@ after successfully starting the application.
 
 
 # Architecture
-- Draw a component diagram which contains controllers, services, DAOs, psql, IEX Cloud, WebServlet/Tomcat, HTTP client, and SpringBoot. 
-- briefly explain the following components and services (3-5 sentences for each)
-  - Controller layer (e.g. handles user requests....)
-  - Service layer
-  - DAO layer
-  - SpringBoot: webservlet/TomCat and IoC
-  - PSQL and IEX
+<img src="../assets/mvc.png" alt="drawing"/>
+
+## Controller layer
+The controller layer defines the endpoints that users can exploit. It handles HTTP requests and sends the data to the corresponding service for further processing.
+
+## Service layer
+The service layer handles business logic to operate on the data sent to and from the data access layer and the controllers.
+
+## Data access layer
+The data access layer is responsible for retrieving and persisting data from external database sources. In this project, JPA/Hibernate is utilized to manage the relational data. 
+
+## Spring/SpringBoot
+The trading system is a Spring Boot application. The Spring framework utilized Inversion of Control (IoC) to manage the components that make up the whole application. In addition to Spring, Spring Boot makes the configuration of the application a lot easier and provides the embedded HTTP server (Apache Tomcat).
+
+## External data
+Real-time market data is retrieved from IEX Cloud and persisted into a PSQL database.  The database also stores the user and transaction information.
 
 # REST API Usage
 ## Swagger
-What's swagger (1-2 sentences, you can copy from swagger docs). Why are we using it or who will benefit from it?
+Swagger UI allows users to visualize and interact with the API’s resources without having any of the implementation logic in place.
+
 ## Quote Controller
-- High-level description for this controller. Where is market data coming from (IEX) and how did you cache the quote data (PSQL). Briefly talk about data from within your app
-- briefly explain each endpoint
-  e.g.
-  - GET `/quote/dailyList`: list all securities that are available to trading in this trading system blah..blah..
-## Trader Controller
-- High-level description for trader controller (e.g. it can manage trader and account information. it can deposit and withdraw fund from a given account)
-- briefly explain each endpoint
-##Order Controller
-- High-level description for this controller.
-- briefly explain each endpoint
-## App controller
-- briefly explain each endpoint
-## Optional(Dashboard controller)
-- High-level description for this controller.
-- briefly explain each endpoint
+Quote Controller allows you to show/modify/update the system's daily list. It will consume the data from IEX Cloud to make sure the local Quote table is valid and up-to-date. 
+- GET `/quote/dailyList`: list all securities that are available to trading in this trading system
+- GET `/quote/dailyList`: list all quotes currently saved in the Quote table
+- PUT `/quote/tickerId/{tickerId}`: add a quote to the Quote table
+- PUT `/quote/update`: update a particular quote
+- PUT `/quote/updateAll`: update all quotes in the quote table
+
+## Account Controller
+Account controller lets users manage trader and account information and deposit and withdraw funds to/from a given account.
+- POST `/trader/firstname/{firstname}/lastname/{lastname}/dob/{dob}/country/{country}/email/{email}`:
+create a new trader and an account with input personal information
+- POST `/trader`: create a trader and an account with a JSON object
+- POST `/trader/traderId/{traderId}`: add an account for the an existing trader
+- DELETE `/trader/traderId/{traderId}`: delete a trader and its associated accounts
+- PUT `/trader/deposit/accountId/{accountId}/ammount/{amount}`: deposit funds into an account
+- PUT `/trader/withdraw/accountId/{accountId}/amount/{amount}`: withdraw funds from an account
+
+## Order Controller
+Order controller handles market order specified by users.
+- POST `/order/marketOrder`: put a market order for an account; can be either a buy or sell order
+
+## Dashboard controller
+Dashboard controller provides a place that you can easily view account-related information.
+- GET `/dashboard/profile/accountId/{accountId}`: show account profile by given account ID
+- GET `/dashboard/profile/traderId/{traderId}`: show trader profile by given trader ID
+- GET `/dashboard/portfolio/accountId/{accountId}`: show account portfolio by given account ID
 
 # Docker Deployment
 - docker diagram including images, containers, network, and docker hub
