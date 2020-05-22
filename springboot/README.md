@@ -109,10 +109,17 @@ Dashboard controller provides a place that you can easily view account-related i
 - GET `/dashboard/portfolio/accountId/{accountId}`: show account portfolio by given account ID
 
 # Docker Deployment
-- docker diagram including images, containers, network, and docker hub
-e.g. https://www.notion.so/jarviscanada/Dockerize-Trading-App-fc8c8f4167ad46089099fd0d31e3855d#6f8912f9438e4e61b91fe57f8ef896e0
-- describe each image in details (e.g. how psql initialize tables)
+<img src="../assets/docker.png" alt="drawing"/>
+
+- `trading-psql` is an image built on top of the official Postgres docker image `postgres:9.6-alpine`. In addition to the official image, `trading-psql` has all necessary databases and tables initialized.
+- `trading-app` is based on the `openjdk:8-alpine` and `maven:3.6-jdk-8-slim` official images. The container will first compile and package the source code using maven, then start the applicaiton.
+- `trading-net` is a docker network which allows docker containers to communicate with each other. In this case, `trading-app` needs to communicate with `trading-psql` which listens on port `5432`.
 
 # Improvements
-If you have more time, what would you improve?
-- at least 5 improvements
+A few things that I could improve:
+
+- Record each transaction.
+- Develop a serious IAM (Identity and access management) system.
+- Develop a more accessible front end.
+- Improve the stability and robustness of the application.
+- Deploy the application to a cloud platform, e.g., AWS, GCP, Azure.
