@@ -8,7 +8,7 @@ Problem solver, culture explorer, lifelong learner. Before joining Jarvis, I gra
 
 **Competent:** Python, Node.js, Docker, Cloud Computing, Machine learning (Scikit-learn, Keras) 
 
-**Familiar:** Angular, Kubernetes, Spark, Scala, DevOps (Jenkins, Travis CI) 
+**Familiar:** Angular, Kubernetes, Hadoop, Spark, Scala, Haskell, DevOps (Jenkins, Travis CI) 
 
 ## Development Projects
 
@@ -16,9 +16,9 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_steve](htt
 
 - **[Cluster Monitor](./linux_sql)**: Followed the software development practices including Agile and Gitflow, I developed an internal tool for cluster administration team to automate database server provision and server usage monitoring. I also wrote clear documentation on architecture design and scripts usage.
 - **[Core Java Apps](./core_java)**: Developed three Java applications: Grep App, JDBC Demo, and Twitter CLI App. Maven is used as the project configuration & building tool and JUnit4 and Mockito for unit & integration testing. I got familiar with many key concepts in web development such as HTTP, JSON, MVC, and Spring framework in this project.
-- **[SpringBoot App](./springboot)**: **In-progress** Developing a trading system with Spring MVC and Hibernate.
-- **[Cloud & DevOps](./cloud_devops)**: Not started
-- **[Hadoop](./hadoop)**: Not started
+- **[SpringBoot App](./springboot)**:  Developed an online stock trading simulation platform. The system is designed with microservice architecture, implemented with Java 8 and SpringBoot. PostgreSQL database and JPA/Hibernate are utilized to persist market/user/transaction data. Users will be able to play trading games via REST API or Swagger UI.
+- **[Cloud & DevOps](./cloud_devops)**: **In-progress**
+- **[Hadoop](./hadoop)**: **In-progress**
 - **[Spark/Scala](./spark)**:  Not started
 
 ## Professional Experiences
