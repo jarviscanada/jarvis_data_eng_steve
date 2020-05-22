@@ -46,7 +46,7 @@ public class QuoteController {
       value = "Update quote table using IEX data",
       notes = "Update all quotes in the quote table. Use IEX trading API as market data source."
   )
-  @PutMapping(path = "/iexMarketData")
+  @PutMapping(path = "/updateAll")
   @ResponseStatus(HttpStatus.OK)
   public List<Quote> updateMarketData() {
     try {
@@ -60,7 +60,7 @@ public class QuoteController {
       value = "Update a given quote in the quote table",
       notes = "Manually update a quote in the quote table using IEX market data."
   )
-  @PutMapping(path = "/")
+  @PutMapping(path = "/update")
   @ResponseStatus(HttpStatus.OK)
   public Quote putQuote(@RequestBody Quote quote) {
     try {
