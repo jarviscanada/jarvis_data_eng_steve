@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Id.PositionId;
 import ca.jrvs.apps.trading.model.domain.Position;
-import ca.jrvs.apps.trading.model.domain.Quote;
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
 import ca.jrvs.apps.trading.model.dto.MarketOrderDto;
 import ca.jrvs.apps.trading.repo.AccountRepository;
@@ -62,9 +61,6 @@ public class OrderServiceTest {
     Position position = new Position(1, "RY", 100);
     when(positionRepository.findById(any(PositionId.class))).thenReturn(Optional.of(position));
 
-    Quote quote = new Quote(
-        "RY", 95d, 100d, 100, 90d, 100
-    );
     when(quoteRepository.findById(anyString())).thenReturn(Optional.of(getQuoteRbc()));
   }
 
