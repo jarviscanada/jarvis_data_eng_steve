@@ -2,6 +2,7 @@ package ca.jrvs.apps.trading.controller;
 
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Trader;
+import ca.jrvs.apps.trading.model.domain.TraderBuilder;
 import ca.jrvs.apps.trading.model.view.TraderAccountView;
 import ca.jrvs.apps.trading.service.TraderAccountService;
 import io.swagger.annotations.Api;
@@ -49,7 +50,13 @@ public class TraderAccountController {
       @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dob,
       @PathVariable String country, @PathVariable String email) {
 
-    Trader trader = new Trader(firstName, lastName, dob, country, email);
+    Trader trader = new TraderBuilder()
+        .setFirstName(firstName)
+        .setLastName(lastName)
+        .setDob(dob)
+        .setCountry(country)
+        .setEmail(email)
+        .createTrader();
     try {
       return service.createTrader(trader);
     } catch (Exception e) {

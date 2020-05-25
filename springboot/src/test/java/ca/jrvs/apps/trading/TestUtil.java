@@ -1,7 +1,9 @@
 package ca.jrvs.apps.trading;
 
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.model.domain.QuoteBuilder;
 import ca.jrvs.apps.trading.model.domain.Trader;
+import ca.jrvs.apps.trading.model.domain.TraderBuilder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +14,25 @@ public class TestUtil {
   public final static Integer NOT_ID = 10;
 
   public static Quote getQuoteShop() {
-    return new Quote(
-        "SHOP", 1000.1d, 1000.2d, 10, 1000d, 10
-    );
+    return new QuoteBuilder()
+        .setTicker("SHOP")
+        .setLastPrice(1000.1d)
+        .setBidPrice(1000.2d)
+        .setBidSize(10)
+        .setAskPrice(1000d)
+        .setAskSize(10)
+        .createQuote();
   }
 
   public static Quote getQuoteRbc() {
-    return new Quote(
-        "RY", 100.1d, 100.2d, 100, 100d, 100
-    );
+    return new QuoteBuilder()
+        .setTicker("RY")
+        .setLastPrice(100.1d)
+        .setBidPrice(100.2d)
+        .setBidSize(100)
+        .setAskPrice(100d)
+        .setAskSize(100)
+        .createQuote();
   }
 
   public static List<String> getSomeTickers() {
@@ -32,15 +44,23 @@ public class TestUtil {
   }
 
   public static Trader getTraderDavid() {
-    return new Trader(
-        "David", "Tepper", LocalDate.of(1957, 9, 11), "US", "dt@foobar.com"
-    );
+    return new TraderBuilder()
+        .setFirstName("David")
+        .setLastName("Tepper")
+        .setDob(LocalDate.of(1957, 9, 11))
+        .setCountry("US")
+        .setEmail("dt@foobar.com")
+        .createTrader();
   }
 
   public static Trader getTraderYasuo() {
-    return new Trader(
-        "Yasuo", "Hamanaka", LocalDate.of(1950, 1, 1), "Japan", "yh@foobar.com"
-    );
+    return new TraderBuilder()
+        .setFirstName("Yasuo")
+        .setLastName("Hamanaka")
+        .setDob(LocalDate.of(1950, 1, 1))
+        .setCountry("Japan")
+        .setEmail("yh@foobar.com")
+        .createTrader();
   }
 
 }

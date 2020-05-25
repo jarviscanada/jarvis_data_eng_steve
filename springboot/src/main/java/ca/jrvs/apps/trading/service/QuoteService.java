@@ -2,6 +2,7 @@ package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.model.domain.QuoteBuilder;
 import ca.jrvs.apps.trading.model.dto.IexQuote;
 import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
@@ -56,14 +57,14 @@ public class QuoteService extends BaseRepoService {
    * Map a IexQuote to a Quote entity
    */
   static Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
-    return new Quote(
-        iexQuote.getSymbol(),
-        iexQuote.getLatestPrice(),
-        iexQuote.getIexBidPrice(),
-        iexQuote.getIexBidSize(),
-        iexQuote.getIexAskPrice(),
-        iexQuote.getIexAskSize()
-    );
+    return new QuoteBuilder()
+        .setTicker(iexQuote.getSymbol())
+        .setLastPrice(iexQuote.getLatestPrice())
+        .setBidPrice(iexQuote.getIexBidPrice())
+        .setBidSize(iexQuote.getIexBidSize())
+        .setAskPrice(iexQuote.getIexAskPrice())
+        .setAskSize(iexQuote.getIexAskSize())
+        .createQuote();
   }
 
   /**

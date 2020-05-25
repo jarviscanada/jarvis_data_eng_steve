@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 import ca.jrvs.apps.trading.model.domain.Account;
 import ca.jrvs.apps.trading.model.domain.Quote;
 import ca.jrvs.apps.trading.model.domain.SecurityOrder;
+import ca.jrvs.apps.trading.model.domain.SecurityOrderBuilder;
 import ca.jrvs.apps.trading.model.domain.Trader;
 import org.junit.After;
 import org.junit.Before;
@@ -73,16 +74,26 @@ public class SecurityOrderRepositoryTest extends
 
   @Override
   SecurityOrder getTestEntity1() {
-    return new SecurityOrder(
-        "FILLED", 100, 100d, "", savedQuote1, savedAccount1
-    );
+    return new SecurityOrderBuilder()
+        .setStatus("FILLED")
+        .setSize(100)
+        .setPrice(100d)
+        .setNotes("")
+        .setQuote(savedQuote1)
+        .setAccount(savedAccount1)
+        .createSecurityOrder();
   }
 
   @Override
   SecurityOrder getTestEntity2() {
-    return new SecurityOrder(
-        "FILLED", 10, 1000d, "", savedQuote2, savedAccount2
-    );
+    return new SecurityOrderBuilder()
+        .setStatus("FILLED")
+        .setSize(10)
+        .setPrice(1000d)
+        .setNotes("")
+        .setQuote(savedQuote2)
+        .setAccount(savedAccount2)
+        .createSecurityOrder();
   }
 
   @Override
