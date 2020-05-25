@@ -18,12 +18,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Service
 @Validated
-public class TraderAccountService {
-
-  private final TraderRepository traderRepository;
-  private final AccountRepository accountRepository;
-  private final PositionRepository positionRepository;
-  private final SecurityOrderRepository orderRepository;
+public class TraderAccountService extends BaseRepoService {
 
   @Autowired
   public TraderAccountService(TraderRepository trader, AccountRepository account,
@@ -128,18 +123,6 @@ public class TraderAccountService {
     account.setAmount(account.getAmount() - fund);
     account = accountRepository.save(account);
     return account;
-  }
-
-  private Account findAccountById(Integer accountId) {
-    return accountRepository.findById(accountId).orElseThrow(
-        () -> new IllegalArgumentException("Account ID not found: " + accountId)
-    );
-  }
-
-  private Trader findTraderById(Integer traderId) {
-    return traderRepository.findById(traderId).orElseThrow(
-        () -> new IllegalArgumentException("Trader ID not found: " + traderId)
-    );
   }
 
 }

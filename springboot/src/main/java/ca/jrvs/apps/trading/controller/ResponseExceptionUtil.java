@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.controller;
 
+import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ public class ResponseExceptionUtil {
   private static final Logger logger = LoggerFactory.getLogger(ResponseExceptionUtil.class);
 
   public static ResponseStatusException getResponseStatusException(Exception ex) {
-    if (ex instanceof IllegalArgumentException) {
+    if (ex instanceof IllegalArgumentException || ex instanceof ConstraintViolationException) {
       logger.debug("Invalid input", ex);
       return new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
     } else {

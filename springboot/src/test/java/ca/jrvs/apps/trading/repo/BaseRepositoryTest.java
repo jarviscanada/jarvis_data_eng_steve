@@ -79,7 +79,7 @@ public abstract class BaseRepositoryTest<R extends JpaRepository<E, I>, E extend
     logger.info(entity2.toString());
 
     Optional<E> entity3 = repo.findById(getNonExistId());
-    assertTrue(entity3.isEmpty());
+    assertFalse(entity3.isPresent());
   }
 
   @Test

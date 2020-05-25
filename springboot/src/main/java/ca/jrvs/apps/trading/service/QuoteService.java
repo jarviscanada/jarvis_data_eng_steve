@@ -1,8 +1,9 @@
 package ca.jrvs.apps.trading.service;
 
 import ca.jrvs.apps.trading.dao.MarketDataDao;
-import ca.jrvs.apps.trading.model.domain.IexQuote;
 import ca.jrvs.apps.trading.model.domain.Quote;
+import ca.jrvs.apps.trading.model.domain.QuoteBuilder;
+import ca.jrvs.apps.trading.model.dto.IexQuote;
 import ca.jrvs.apps.trading.repo.QuoteRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,16 +12,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
-@Transactional
 @Service
 @Validated
-public class QuoteService {
+public class QuoteService extends BaseRepoService {
 
   private final MarketDataDao marketDataDao;
-  private final QuoteRepository quoteRepository;
 
   @Autowired
   public QuoteService(MarketDataDao marketDataDao, QuoteRepository quoteRepository) {
@@ -59,14 +57,14 @@ public class QuoteService {
    * Map a IexQuote to a Quote entity
    */
   static Quote buildQuoteFromIexQuote(IexQuote iexQuote) {
-    return new Quote(
-        iexQuote.getSymbol(),
-        iexQuote.getLatestPrice(),
-        iexQuote.getIexBidPrice(),
-        iexQuote.getIexBidSize(),
-        iexQuote.getIexAskPrice(),
-        iexQuote.getIexAskSize()
-    );
+    return new QuoteBuilder()
+        .setTicker(iexQuote.getSymbol())
+        .setLastPrice(iexQuote.getLatestPrice())
+        .setBidPrice(iexQuote.getIexBidPrice())
+        .setBidSize(iexQuote.getIexBidSize())
+        .setAskPrice(iexQuote.getIexAskPrice())
+        .setAskSize(iexQuote.getIexAskSize())
+        .createQuote();
   }
 
   /**

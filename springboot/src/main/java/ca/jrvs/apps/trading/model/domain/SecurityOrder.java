@@ -1,5 +1,6 @@
 package ca.jrvs.apps.trading.model.domain;
 
+import ca.jrvs.apps.trading.model.domain.Id.PositionId;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -140,5 +141,25 @@ public class SecurityOrder implements Entity<Integer> {
 
   public void setNotes(String notes) {
     this.notes = notes;
+  }
+
+  public Quote getQuote() {
+    return quote;
+  }
+
+  public void setQuote(Quote quote) {
+    this.quote = quote;
+  }
+
+  public Account getAccount() {
+    return account;
+  }
+
+  public void setAccount(Account account) {
+    this.account = account;
+  }
+
+  public PositionId getPositionId() {
+    return new PositionId(account.getId(), quote.getTicker());
   }
 }

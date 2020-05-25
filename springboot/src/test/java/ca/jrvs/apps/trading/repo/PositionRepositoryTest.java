@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import ca.jrvs.apps.trading.model.domain.Id.PositionId;
 import ca.jrvs.apps.trading.model.domain.Position;
-import ca.jrvs.apps.trading.model.domain.SecurityOrder;
+import ca.jrvs.apps.trading.model.domain.SecurityOrderBuilder;
 import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
@@ -21,6 +21,7 @@ public class PositionRepositoryTest extends SecurityOrderRepositoryTest {
 
   private static final Logger logger = LoggerFactory.getLogger(PositionRepositoryTest.class);
   private long defaultCount;
+
   @Autowired
   private PositionRepository positionRepository;
 
@@ -65,9 +66,15 @@ public class PositionRepositoryTest extends SecurityOrderRepositoryTest {
   }
 
   private void addOne() {
-    SecurityOrder order = new SecurityOrder(
-        "FILLED", 50, 90d, "", savedQuote1, savedAccount2
+    repo.save(
+        new SecurityOrderBuilder()
+            .setStatus("FILLED")
+            .setSize(50)
+            .setPrice(90d)
+            .setNotes("")
+            .setQuote(savedQuote1)
+            .setAccount(savedAccount2)
+            .createSecurityOrder()
     );
-    repo.save(order);
   }
 }

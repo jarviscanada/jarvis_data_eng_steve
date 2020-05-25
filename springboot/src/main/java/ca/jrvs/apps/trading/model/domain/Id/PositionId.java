@@ -15,9 +15,17 @@ public class PositionId implements Serializable {
   public PositionId() {
   }
 
-  public PositionId(@NotNull Integer accountId, @NotBlank String ticker) {
+  public PositionId(Integer accountId, String ticker) {
     this.accountId = accountId;
     this.ticker = ticker;
+  }
+
+  @Override
+  public String toString() {
+    return "PositionId{" +
+        "accountId=" + accountId +
+        ", ticker='" + ticker + '\'' +
+        '}';
   }
 
   @Override

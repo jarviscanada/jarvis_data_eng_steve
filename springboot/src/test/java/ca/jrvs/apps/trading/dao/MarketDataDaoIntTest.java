@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import ca.jrvs.apps.trading.dao.config.MarketDataConfig;
-import ca.jrvs.apps.trading.model.domain.IexQuote;
+import ca.jrvs.apps.trading.model.dto.IexQuote;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +42,7 @@ public class MarketDataDaoIntTest {
     String ticker2 = "FB2";
     assertFalse(dao.existsById(ticker2));
     Optional<IexQuote> quote2 = dao.findById(ticker2);
-    assertTrue(quote2.isEmpty());
+    assertFalse(quote2.isPresent());
 
     try {
       dao.findById("?");
