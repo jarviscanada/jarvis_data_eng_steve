@@ -41,6 +41,6 @@ Project source code: [https://github.com/jarviscanada/jarvis_data_eng_steve](htt
 
 ## Certificates & Awards & Activities
 
-- Amazon Web Services (AWS) Certified Cloud Practitioner - 2020
+- [AWS Certified Cloud Practitioner](https://www.youracclaim.com/badges/2988693f-1f3d-4e69-91c6-8a56eea889dd/public_url) - 2020
 - Academic exchange to Hong Kong Baptist University (HKBU) - 2017
 - Japanese-Language Proficiency Test N2-Passed - 2017
