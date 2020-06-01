@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -101,10 +102,12 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
    */
   @Override
   public List<IexQuote> findAllById(Iterable<String> tickers) {
+    tickers.forEach(MarketDataDao::validateTicker);
+    StringJoiner joiner = new StringJoiner(",");
     for (String t : tickers) {
-      validateTicker(t);
+      joiner.add(t.toUpperCase());
     }
-    String url = String.format(IEX_BATCH_URL, String.join(",", tickers));
+    String url = String.format(IEX_BATCH_URL, String.join(",", joiner.toString()));
     Optional<String> results = executeHttpGet(url);
 
     List<IexQuote> quotes = new ArrayList<>();
@@ -177,7 +180,7 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
         logger.warn("Required resource not found, Optional.empty will be returned.");
         return Optional.empty();
       default:
-        logger.debug(bodyString);
+        logger.info(bodyString);
         throw new DataRetrievalFailureException("Unexpected HTTP status: " + status
             + "\nSee https://iexcloud.io/docs/api/#error-codes");
     }
