@@ -10,7 +10,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.StringJoiner;
 import java.util.regex.Pattern;
 
 public class TweetUtil {
@@ -167,11 +166,7 @@ public class TweetUtil {
    * @see ca.jrvs.apps.twitter.controller.TwitterController#showTweet(String[])
    */
   public static String fieldsToString(String[] fields) {
-    StringJoiner joiner = new StringJoiner(FIELD_SEP);
-    for (String f : fields) {
-      joiner.add(f);
-    }
-    return joiner.toString();
+    return String.join(FIELD_SEP, fields);
   }
 
   /**
