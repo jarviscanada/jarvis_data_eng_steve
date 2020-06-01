@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.StringJoiner;
 import java.util.regex.Pattern;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -103,29 +102,35 @@ public class MarketDataDao implements CrudRepository<IexQuote, String> {
   @Override
   public List<IexQuote> findAllById(Iterable<String> tickers) {
     tickers.forEach(MarketDataDao::validateTicker);
-    StringJoiner joiner = new StringJoiner(",");
-    for (String t : tickers) {
-      joiner.add(t.toUpperCase());
-    }
-    String url = String.format(IEX_BATCH_URL, String.join(",", joiner.toString()));
+    String url = String.format(IEX_BATCH_URL, String.join(",", tickers));
     Optional<String> results = executeHttpGet(url);
 
     List<IexQuote> quotes = new ArrayList<>();
     if (results.isPresent()) {
-      JSONObject quotesJson = new JSONObject(results.get());
-      ObjectMapper mapper = new ObjectMapper();
-      for (String t : tickers) {
-        String quoteJsonStr = quotesJson.getJSONObject(t).getJSONObject("quote").toString();
-        IexQuote q;
-        try {
-          q = mapper.readValue(quoteJsonStr, IexQuote.class);
-        } catch (IOException e) {
-          throw new DataRetrievalFailureException("Failed to parse JSON to Quote object", e);
-        }
-        quotes.add(q);
-      }
+      JSONObject resultJson = new JSONObject(results.get());
+      tickers.forEach(t -> quotes.add(
+          mapJsonToIexQuote(
+              extractFromBatchResult(resultJson, t)
+          ))
+      );
     }
     return quotes;
+  }
+
+  private static IexQuote mapJsonToIexQuote(String quoteJsonString) {
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      return mapper.readValue(quoteJsonString, IexQuote.class);
+    } catch (IOException e) {
+      throw new DataRetrievalFailureException("Failed to parse JSON to Quote object", e);
+    }
+  }
+
+  private static String extractFromBatchResult(JSONObject results, String ticker) {
+    return results
+        .getJSONObject(ticker.toUpperCase())
+        .getJSONObject("quote")
+        .toString();
   }
 
   @Override
