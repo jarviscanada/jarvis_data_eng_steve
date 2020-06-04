@@ -14,7 +14,7 @@ eb_env=$2
 
 rm -rf .elasticbeanstalk
 #init eb for the project
-eb init ${app_name} --platform java --region us-east-1
+eb init ${app_name} --platform java --region ca-central-1
 eb use ${eb_env}
 
 #Edit EB config file which tells EB which artifact to deploy
