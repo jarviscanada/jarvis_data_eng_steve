@@ -33,4 +33,8 @@ public class ListNode<E> {
     this.next = next;
   }
 
+  public boolean hasNext() {
+    return this.next != null;
+  }
+
 }
