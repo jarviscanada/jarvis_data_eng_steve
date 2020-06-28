@@ -16,8 +16,8 @@ public class ValidAnagramTest {
 
   @Test
   public void validByRecord() {
-    assertTrue(ValidAnagram.validBySorting("anagram", "nagaram"));
-    assertFalse(ValidAnagram.validBySorting("anagram", "nagaran"));
-    assertTrue(ValidAnagram.validBySorting("語言", "言語"));
+    assertTrue(ValidAnagram.validByRecord("anagram", "nagaram"));
+    assertFalse(ValidAnagram.validByRecord("anagram", "nagaran"));
+    assertTrue(ValidAnagram.validByRecord("語言", "言語"));
   }
 }
