@@ -76,4 +76,26 @@ public class LinkedListUtilTest {
     // remove only node
     assertNull(util.removeNthFromEnd(tail, 1));
   }
+
+  @Test
+  public void reverseListByRecursion() {
+    head = util.reverseListByRecursion(head);
+    assertNull(head);
+
+    head = new ListNode<>(100);
+    head.setNext(new ListNode<>(200));
+    head = util.reverseListByRecursion(head);
+    assertEquals(200, head.getVal().intValue());
+  }
+
+  @Test
+  public void reverseListByIteration() {
+    head = util.reverseListByIteration(head);
+    assertNull(head);
+
+    head = new ListNode<>(100);
+    head.setNext(new ListNode<>(200));
+    head = util.reverseListByIteration(head);
+    assertEquals(200, head.getVal().intValue());
+  }
 }

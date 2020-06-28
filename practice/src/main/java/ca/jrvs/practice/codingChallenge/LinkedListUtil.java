@@ -11,7 +11,7 @@ public class LinkedListUtil<E> {
    */
   public ListNode<E> middleNode(ListNode<E> head) {
     ListNode<E> slow = head, fast = head;
-    while (fast != null && fast.getNext() != null) {
+    while (fast != null && fast.hasNext()) {
       slow = slow.getNext();
       fast = fast.getNext().getNext();
     }
@@ -26,7 +26,7 @@ public class LinkedListUtil<E> {
    */
   public boolean hasCycle(ListNode<E> head) {
     ListNode<E> slow = head, fast = head;
-    while (fast != null && fast.getNext() != null) {
+    while (fast != null && fast.hasNext()) {
       slow = slow.getNext();
       fast = fast.getNext().getNext();
       if (slow == fast) {
@@ -51,16 +51,49 @@ public class LinkedListUtil<E> {
         return head;
       }
       first = first.getNext();
-
     }
     while (first != null) {
       first = first.getNext();
       second = second.getNext();
     }
-    if (second.getNext() != null) {
+    if (second.hasNext()) {
       second.setNext(second.getNext().getNext());
     }
     return dummy.getNext();
+  }
+
+  /**
+   * Big-O: Time O(n) Space O(1)
+   * <p>
+   * Justification: one loop
+   */
+  public ListNode<E> reverseListByIteration(ListNode<E> head) {
+    if (head == null) {
+      return null;
+    }
+    ListNode<E> newHead = head;
+    while (head.hasNext()) {
+      ListNode<E> curNext = head.getNext();
+      head.setNext(curNext.getNext());
+      curNext.setNext(newHead);
+      newHead = curNext;
+    }
+    return newHead;
+  }
+
+  /**
+   * Big-O: Time O(n) Space O(n)
+   * <p>
+   * Justification: recursion depth = n
+   */
+  public ListNode<E> reverseListByRecursion(ListNode<E> head) {
+    if (head == null || !head.hasNext()) {
+      return head;
+    }
+    ListNode<E> newHead = reverseListByRecursion(head.getNext());
+    head.getNext().setNext(head);
+    head.setNext(null);
+    return newHead;
   }
 
 }
