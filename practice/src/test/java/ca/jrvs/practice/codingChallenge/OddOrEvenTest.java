@@ -44,10 +44,10 @@ public class OddOrEvenTest {
   public void oddEvenBit() {
     System.out.println("Test case: test oddEvenBit method from the test class");
     String expected = "odd";
-    Assert.assertEquals(expected, OddOrEven.oddEvenMod(3));
+    Assert.assertEquals(expected, OddOrEven.oddEvenBit(3));
     expected = "even";
-    Assert.assertEquals(expected, OddOrEven.oddEvenMod(4));
+    Assert.assertEquals(expected, OddOrEven.oddEvenBit(4));
     expected = "even";
-    Assert.assertEquals(expected, OddOrEven.oddEvenMod(0));
+    Assert.assertEquals(expected, OddOrEven.oddEvenBit(0));
   }
 }

@@ -1,6 +1,8 @@
 package ca.jrvs.practice.dataStructure.list;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LinkedJList<E> implements JList<E> {
 
@@ -111,6 +113,23 @@ public class LinkedJList<E> implements JList<E> {
     node.next = old.next;
     size--;
     return value;
+  }
+
+  /**
+   * Remove duplicate nodes
+   */
+  public void unique() {
+    ListNode<E> cur = new ListNode<>();
+    cur.setNext(first);
+    Set<E> set = new HashSet<>();
+    while (cur != null && cur.next != null) {
+      if (set.contains(cur.next.val)) {
+        unlinkNode(cur);
+      } else {
+        set.add(cur.next.val);
+      }
+      cur = cur.next;
+    }
   }
 
   @Override

@@ -17,6 +17,6 @@ public class OddOrEven {
    * Big-O: O(1) Justification: it's a bit operation, the constant is the size of int
    */
   public static String oddEvenBit(int i) {
-    return (i & 1) == 1 ? "even" : "odd";
+    return (i & 1) == 1 ? "odd" : "even";
   }
 }
